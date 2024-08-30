@@ -1,6 +1,6 @@
 package com.ems.sow.controllers;
 
-import com.ems.sow.entities.ApplicationList;
+import com.ems.sow.model.ApplicationList;
 import com.ems.sow.projection.IApplicationListProj;
 import com.ems.sow.services.ApplicationListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,18 @@ public class ApplicationListController {
 
     @Autowired
     private ApplicationListService applicationListService;
+
+    @PostMapping
+    private ResponseEntity<ApplicationList> createApplication(@RequestBody ApplicationList list) {
+        final ApplicationList application = applicationListService.createApplication(list);
+        return ResponseEntity.status(HttpStatus.CREATED).body(application);
+    }
+
+    @GetMapping(value = "/list")
+    private ResponseEntity<List<ApplicationList>> getApplicationDetails() {
+        final List<ApplicationList> list = applicationListService.getAllApplicationList();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
     @GetMapping
     private ResponseEntity<List<IApplicationListProj>> getActiveCustomerCount() {

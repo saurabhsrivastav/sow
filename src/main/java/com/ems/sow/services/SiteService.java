@@ -1,8 +1,6 @@
 package com.ems.sow.services;
 
-import com.ems.sow.entities.CustomerList;
-import com.ems.sow.entities.SiteDetails;
-import com.ems.sow.repositories.SiteRepository;
+import com.ems.sow.model.SiteDetails;
 
 import java.util.List;
 

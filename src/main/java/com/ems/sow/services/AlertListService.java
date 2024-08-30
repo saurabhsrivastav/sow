@@ -1,6 +1,6 @@
 package com.ems.sow.services;
 
-import com.ems.sow.entities.AlertList;
+import com.ems.sow.model.AlertList;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.ems.sow.controllers;
 
-import com.ems.sow.entities.AlertList;
+import com.ems.sow.model.AlertList;
 import com.ems.sow.services.AlertListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

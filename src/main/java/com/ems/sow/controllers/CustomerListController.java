@@ -1,10 +1,13 @@
 package com.ems.sow.controllers;
 
-import com.ems.sow.entities.CustomerList;
+import com.ems.sow.model.ApplicationList;
+import com.ems.sow.model.CustomerList;
 import com.ems.sow.services.CustomerListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,16 @@ public class CustomerListController {
 
     @Autowired
     private CustomerListService customerListService;
+
+    @PostMapping
+    private ResponseEntity<CustomerList> addNewCustomer(@RequestBody CustomerList customerList) {
+        try {
+            final CustomerList list = customerListService.createCustomer(customerList);
+            return ResponseEntity.status(HttpStatus.CREATED).body(list);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     @GetMapping
     private ResponseEntity<List<CustomerList>> getAllCustomerList() {
@@ -31,9 +44,6 @@ public class CustomerListController {
         return null;
     }
 
-    @PostMapping
-    private ResponseEntity<CustomerList> addNewCustomer(@RequestBody CustomerList customerList) {
-        return ResponseEntity.ok(customerListService.createCustomer(customerList));
-    }
+
 
 }

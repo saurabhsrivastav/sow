@@ -1,6 +1,6 @@
 package com.ems.sow.services.implementation;
 
-import com.ems.sow.entities.AlertList;
+import com.ems.sow.model.AlertList;
 import com.ems.sow.repositories.AlertListRepository;
 import com.ems.sow.services.AlertListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ public class AlertListImplementation implements AlertListService {
      */
     @Override
     public List<AlertList> getAlertByCustomerId(Integer id) {
-        return alertListRepository.findByCustomerId(id);
+       // return alertListRepository.findByCustomerId(id);
+        return null;
     }
 }

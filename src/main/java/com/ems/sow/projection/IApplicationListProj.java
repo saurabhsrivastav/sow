@@ -4,7 +4,7 @@ public interface IApplicationListProj {
 
     Integer getApplicationID();
     String getApplicationName();
-    String getApplicationDescription();
+    String getDescription();
     Boolean getStatus();
     Integer getActiveCustomerCount();
 

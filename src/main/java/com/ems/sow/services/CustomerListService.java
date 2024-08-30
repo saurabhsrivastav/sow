@@ -1,6 +1,6 @@
 package com.ems.sow.services;
 
-import com.ems.sow.entities.CustomerList;
+import com.ems.sow.model.CustomerList;
 
 import java.util.List;
 import java.util.Optional;

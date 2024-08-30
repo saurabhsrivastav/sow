@@ -1,7 +1,7 @@
 package com.ems.sow.controllers;
 
 
-import com.ems.sow.entities.SiteDetails;
+import com.ems.sow.model.SiteDetails;
 import com.ems.sow.services.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

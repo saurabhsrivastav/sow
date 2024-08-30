@@ -1,7 +1,6 @@
 package com.ems.sow.services.implementation;
 
-import com.ems.sow.entities.CustomerList;
-import com.ems.sow.entities.SiteDetails;
+import com.ems.sow.model.SiteDetails;
 import com.ems.sow.repositories.SiteRepository;
 import com.ems.sow.services.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
