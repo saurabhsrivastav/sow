@@ -20,24 +20,29 @@ public class ApplicationListImplementation implements ApplicationListService {
     @Autowired
     private ApplicationListRepository repository;
 
-    /**
-     * @return
-     */
     @Override
     public List<ApplicationList> getAllApplicationList() {
         return repository.findAll();
     }
 
+    @Override
     public ApplicationList createApplication(ApplicationList list) {
         String appId = UUID.randomUUID().toString();
         list.setApplicationId(appId);
         return repository.save(list);
     }
-    /**
-     * @return
-     */
+
     @Override
     public List<IApplicationListProj> getActiveCustomerCount() {
         return repository.getActiveCustomerCount();
     }
+
+    @Override
+    public ApplicationList updateStatus(ApplicationList list) {
+        return repository.save(list);
+    }
 }
+
+
+
+

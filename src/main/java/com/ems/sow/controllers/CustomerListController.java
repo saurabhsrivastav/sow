@@ -1,18 +1,15 @@
 package com.ems.sow.controllers;
 
-import com.ems.sow.model.ApplicationList;
 import com.ems.sow.model.CustomerList;
+import com.ems.sow.projection.ICustomerListProj;
 import com.ems.sow.services.CustomerListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/customer-list")
 public class CustomerListController {
@@ -31,19 +28,34 @@ public class CustomerListController {
     }
 
     @GetMapping
-    private ResponseEntity<List<CustomerList>> getAllCustomerList() {
-        return ResponseEntity.ok(customerListService.getAllCustomersList());
+    private ResponseEntity<List<ICustomerListProj>> getAllCustomerList() {
+        final List<ICustomerListProj> allCustomersList = customerListService.getAllCustomersList();
+        return ResponseEntity.ok(allCustomersList);
     }
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<Optional<List<CustomerList>>> getCustomerList(@PathVariable Integer id) {
-        final Optional<List<CustomerList>> customer = customerListService.getCustomerById(id);
-        if (customer.isPresent()) {
-            return ResponseEntity.ok(customer);
-        }
-        return null;
+    private ResponseEntity<List<ICustomerListProj>> getCustomerList(@PathVariable String id) {
+        final List<ICustomerListProj> customer = customerListService.getCustomerById(id);
+        return ResponseEntity.ok(customer);
     }
 
+    @PutMapping(value = "/update-customer")
+    private ResponseEntity<CustomerList> updateCustomer(@RequestBody CustomerList customerList) {
+        try {
+            final CustomerList list = customerListService.updateCustomer(customerList);
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-
+    @DeleteMapping("/{id}")
+    private ResponseEntity<CustomerList> deleteCustomer(@PathVariable String id) {
+        try {
+            customerListService.deleteCustomer(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

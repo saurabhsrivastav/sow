@@ -6,12 +6,6 @@ import java.util.List;
 
 public interface AlertListService {
 
-    /**
-     * Get All Alert List
-     *
-     * @return
-     */
-
-    List<AlertList> getAlertByCustomerId(Integer id);
+    List<AlertList> getAlertByCustomerId(String id);
 
 }

@@ -1,14 +1,13 @@
 package com.ems.sow.repositories;
 
-import com.ems.sow.model.SiteDetails;
+import com.ems.sow.model.DeviceDetailList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface SiteRepository extends JpaRepository<SiteDetails, String> {
+public interface DeviceInfoRepository extends JpaRepository<DeviceDetailList, String> {
 
-
-    List<SiteDetails> findByCustomerId(String id);
+    List<DeviceDetailList> findByDeviceId(String id);
 }

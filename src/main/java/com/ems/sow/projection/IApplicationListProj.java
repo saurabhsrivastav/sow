@@ -2,7 +2,7 @@ package com.ems.sow.projection;
 
 public interface IApplicationListProj {
 
-    Integer getApplicationID();
+    String getApplicationId();
     String getApplicationName();
     String getDescription();
     Boolean getStatus();

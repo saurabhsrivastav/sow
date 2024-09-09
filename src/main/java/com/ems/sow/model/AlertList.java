@@ -26,5 +26,7 @@ public class AlertList {
     private Date timestamp;
     @Column (name = "snooze", nullable = false, length=6)
     private Boolean snooze;
+    @Column(name = "customerId" , nullable = false, length=40)
+    private String customerId;
 
 }

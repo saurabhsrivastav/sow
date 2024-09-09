@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface AlertListRepository extends JpaRepository<AlertList, String> {
 
-    //List<AlertList> findByCustomerId(String id);
+    List<AlertList> findByCustomerId(String id);
 }

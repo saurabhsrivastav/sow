@@ -11,17 +11,29 @@ import lombok.*;
 @Table(name = "site_details")
 public class SiteDetails {
     @Id
-    @Column(name = "siteId" , nullable = false, length=40)
+    @Column(nullable = false, length=40)
     private String siteId;
-    @Column (name = "siteName", nullable = false, length=100)
+    @Column (nullable = false, length=100)
     private String siteName;
-    @Column (name = "geofenceRadius", nullable = false, length=50)
+    @Column (nullable = false, length=5)
     private String geofenceRadius;
-    @Column (name = "latitude", nullable = false, length=50)
+    @Column (nullable = false, length=10)
     private String latitude;
-    @Column (name = "longitude", nullable = false, length=50)
+    @Column (nullable = false, length=10)
     private String longitude;
-    @Column (name = "googleMapLocation", nullable = false, length=100)
+    @Column (nullable = false, length=20)
     private String googleMapLocation;
+    @Column (nullable = false, length=40)
+    private String selectedSiteId;
+    @Column(nullable = false, length=40)
+    private String customerId;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.selectedSiteId == null) {
+            this.selectedSiteId = "0";
+        }
+    }
+
 
 }

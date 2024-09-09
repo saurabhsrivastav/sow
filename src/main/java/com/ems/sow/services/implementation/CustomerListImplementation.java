@@ -1,17 +1,15 @@
 package com.ems.sow.services.implementation;
 
 import com.ems.sow.model.CustomerList;
+import com.ems.sow.projection.ICustomerListProj;
 import com.ems.sow.repositories.CustomerListRepository;
 import com.ems.sow.services.CustomerListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -25,14 +23,10 @@ public class CustomerListImplementation implements CustomerListService {
     private CustomerListRepository customerListRepository;
 
     @Override
-    public List<CustomerList> getAllCustomersList() {
-        return customerListRepository.findAll();
+    public List<ICustomerListProj> getAllCustomersList() {
+        return customerListRepository.getAllCustomerDetails();
     }
 
-    /**
-     * @param customerList
-     * @return
-     */
     @Override
     public CustomerList createCustomer(CustomerList customerList) {
         String list = UUID.randomUUID().toString();
@@ -46,13 +40,18 @@ public class CustomerListImplementation implements CustomerListService {
         return customerListRepository.save(customerList);
     }
 
-    /**
-     * @param id
-     * @return
-     */
     @Override
-    public Optional<List<CustomerList>> getCustomerById(Integer id) {
-       // return customerListRepository.findByApplicationId(id);
-        return null;
+    public List<ICustomerListProj> getCustomerById(String id) {
+        return customerListRepository.findByApplicationId(id);
+    }
+
+    @Override
+    public CustomerList updateCustomer(CustomerList customerList) {
+        return customerListRepository.save(customerList);
+    }
+
+    @Override
+    public void deleteCustomer(String id) {
+        customerListRepository.deleteById(id);
     }
 }

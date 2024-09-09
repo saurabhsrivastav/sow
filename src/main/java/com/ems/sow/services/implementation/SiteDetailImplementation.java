@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SiteDetailImplementation implements SiteService {
@@ -16,5 +17,18 @@ public class SiteDetailImplementation implements SiteService {
 
     public List<SiteDetails> getAllSitesList() {
         return siteRepository.findAll();
+    }
+
+    @Override
+    public List<SiteDetails> getSiteById(String id) {
+        return siteRepository.findByCustomerId(id);
+    }
+
+
+    @Override
+    public SiteDetails createSite(SiteDetails siteDetails) {
+        String siteId = UUID.randomUUID().toString();
+        siteDetails.setSiteId(siteId);
+        return siteRepository.save(siteDetails);
     }
 }

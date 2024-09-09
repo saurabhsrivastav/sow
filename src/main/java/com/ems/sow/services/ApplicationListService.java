@@ -11,5 +11,6 @@ public interface ApplicationListService {
     List<ApplicationList> getAllApplicationList();
     ApplicationList createApplication(ApplicationList list);
     List<IApplicationListProj> getActiveCustomerCount();
+    ApplicationList updateStatus(ApplicationList list);
 
 }

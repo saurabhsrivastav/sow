@@ -11,10 +11,22 @@ import java.util.List;
 @Repository
 public interface ApplicationListRepository extends JpaRepository<ApplicationList, String> {
 
-    @Query(value = "select al.application_id as applicationID, al.application_name as applicationName, al.description as applicationDescription, al.status as status, count(*) as activeCustomerCount " +
-            "from application_lists as al join customer_details as cd " +
-            "on al.application_id = cd.application_id " +
-            "group by al.application_id " +
-            "ORDER BY al.application_id ASC ", nativeQuery = true)
+    @Query(value = "SELECT \n" +
+            "    al.application_id AS applicationId, \n" +
+            "    al.application_name AS applicationName, \n" +
+            "    al.description AS description, \n" +
+            "    al.status AS status, \n" +
+            "    COUNT(cd.customer_id) AS activeCustomerCount\n" +
+            "FROM \n" +
+            "    application_lists al \n" +
+            "JOIN \n" +
+            "    customer_details cd \n" +
+            "ON \n" +
+            "    al.application_id = cd.application_id\n" +
+            "GROUP BY \n" +
+            "    al.application_id, \n" +
+            "    al.application_name, \n" +
+            "    al.description, \n" +
+            "    al.status;", nativeQuery = true)
     List<IApplicationListProj> getActiveCustomerCount();
 }

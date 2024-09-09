@@ -25,8 +25,7 @@ public class AlertListImplementation implements AlertListService {
      * @return
      */
     @Override
-    public List<AlertList> getAlertByCustomerId(Integer id) {
-       // return alertListRepository.findByCustomerId(id);
-        return null;
+    public List<AlertList> getAlertByCustomerId(String id) {
+        return alertListRepository.findByCustomerId(id);
     }
 }
