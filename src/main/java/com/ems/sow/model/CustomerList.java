@@ -3,8 +3,6 @@ package com.ems.sow.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,14 +25,7 @@ public class CustomerList {
     @Column (nullable = false)
     private String subEndDate;
     @Column (nullable = false, length=10)
-    private String siteCapping;
-    @Column (nullable = false, length=10)
-    private String deviceCapping;
-    @Transient
-    @Column (nullable = false, length=10)
-    private String userAdded;
-   /* @Column (name = "image", nullable = false)
-    private byte[] image;*/
-    @Column (nullable = false, length=40)
+    @Lob
+    private byte[] image;
     private String applicationId;
 }

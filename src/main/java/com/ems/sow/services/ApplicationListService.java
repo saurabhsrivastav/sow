@@ -8,9 +8,8 @@ import java.util.List;
 
 public interface ApplicationListService {
 
-    List<ApplicationList> getAllApplicationList();
+    List<ApplicationList> getAllApplications();
     ApplicationList createApplication(ApplicationList list);
-    List<IApplicationListProj> getActiveCustomerCount();
+    List<IApplicationListProj> getActiveCustomer();
     ApplicationList updateStatus(ApplicationList list);
-
 }

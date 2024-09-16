@@ -21,7 +21,7 @@ public class ApplicationListImplementation implements ApplicationListService {
     private ApplicationListRepository repository;
 
     @Override
-    public List<ApplicationList> getAllApplicationList() {
+    public List<ApplicationList> getAllApplications() {
         return repository.findAll();
     }
 
@@ -33,8 +33,8 @@ public class ApplicationListImplementation implements ApplicationListService {
     }
 
     @Override
-    public List<IApplicationListProj> getActiveCustomerCount() {
-        return repository.getActiveCustomerCount();
+    public List<IApplicationListProj> getActiveCustomer() {
+        return repository.getActiveCustomer();
     }
 
     @Override

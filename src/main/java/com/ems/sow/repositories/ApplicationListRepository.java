@@ -19,7 +19,7 @@ public interface ApplicationListRepository extends JpaRepository<ApplicationList
             "    COUNT(cd.customer_id) AS activeCustomerCount\n" +
             "FROM \n" +
             "    application_lists al \n" +
-            "JOIN \n" +
+            "LEFT JOIN \n" +
             "    customer_details cd \n" +
             "ON \n" +
             "    al.application_id = cd.application_id\n" +
@@ -27,6 +27,7 @@ public interface ApplicationListRepository extends JpaRepository<ApplicationList
             "    al.application_id, \n" +
             "    al.application_name, \n" +
             "    al.description, \n" +
-            "    al.status;", nativeQuery = true)
-    List<IApplicationListProj> getActiveCustomerCount();
+            "    al.status \n" +
+            "Order by al.application_name", nativeQuery = true)
+    List<IApplicationListProj> getActiveCustomer();
 }

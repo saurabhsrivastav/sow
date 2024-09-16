@@ -22,6 +22,6 @@ public class ApplicationList {
 
     @PrePersist
     public void prePersist() {
-        status = false;
+        status = true;
     }
 }

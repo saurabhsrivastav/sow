@@ -20,7 +20,7 @@ public class SowApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Apply CORS settings to all paths
-                        .allowedOrigins("http://localhost:4200", "http://example.com") // Allow multiple origins
+                        .allowedOrigins("http://localhost:4200") // Allow multiple origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
                         .allowedHeaders("Content-Type", "Authorization") // Allow specific headers
                         .allowCredentials(true); // Allow credentials (cookies, etc.)

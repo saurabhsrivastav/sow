@@ -24,24 +24,28 @@ public class ApplicationListController {
     @PostMapping
     private ResponseEntity<ApplicationList> createApplication(@RequestBody ApplicationList list) {
         logger.info("Request to create application {}", list);
-        final ApplicationList application = applicationListService.createApplication(list);
+            final ApplicationList application = applicationListService.createApplication(list);
         return ResponseEntity.status(HttpStatus.CREATED).body(application);
     }
 
     @GetMapping(value = "/list")
     private ResponseEntity<List<ApplicationList>> getApplicationDetails() {
         logger.info("Request to get application details");
-        final List<ApplicationList> list = applicationListService.getAllApplicationList();
+        final List<ApplicationList> list = applicationListService.getAllApplications();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping
-    private ResponseEntity<List<IApplicationListProj>> getAppDetailWithActiveCustomerCount() {
+    private ResponseEntity<List<?>> getApplicationDetailWithActiveCustomerCount() {
         logger.info("Request to get application details with active customer count");
-        List<IApplicationListProj> activeCustomerCount = applicationListService.getActiveCustomerCount();
-        return new ResponseEntity<>(activeCustomerCount, HttpStatus.OK);
+        List<IApplicationListProj> activeCustomerCount = applicationListService.getActiveCustomer();
+        if (activeCustomerCount.isEmpty()) {
+            final List<ApplicationList> list = applicationListService.getAllApplications();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(activeCustomerCount, HttpStatus.OK);
+        }
     }
-
 
     @PutMapping(value = "/update-status")
     private ResponseEntity<ApplicationList> updateStatus(@RequestBody ApplicationList list) {
@@ -50,7 +54,7 @@ public class ApplicationListController {
             final ApplicationList updateApplication = applicationListService.updateStatus(list);
             return ResponseEntity.ok(updateApplication);
         } catch (DataIntegrityViolationException e) {
-            logger.error("Exception occurred {}", e);
+            logger.error("Exception occurred", e);
             return null;
         }
     }

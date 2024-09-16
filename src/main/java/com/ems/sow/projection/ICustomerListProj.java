@@ -5,9 +5,9 @@ public interface ICustomerListProj {
     String getCustomerName();
     String getAddress();
     String getContactPerson();
-    String getSubscriptionStartDate();
-    String getSubscriptionEndDate();
+    String getSubStartDate();
+    String getSubEndDate();
     String getDeviceCount();
     String getSiteCount();
-    String getApplicationLists();
+    String getApplicationId();
 }

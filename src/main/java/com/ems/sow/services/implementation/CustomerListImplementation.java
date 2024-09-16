@@ -4,11 +4,12 @@ import com.ems.sow.model.CustomerList;
 import com.ems.sow.projection.ICustomerListProj;
 import com.ems.sow.repositories.CustomerListRepository;
 import com.ems.sow.services.CustomerListService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,39 +20,50 @@ import java.util.UUID;
 @Service
 public class CustomerListImplementation implements CustomerListService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomerListImplementation.class);
+
     @Autowired
     private CustomerListRepository customerListRepository;
 
     @Override
-    public List<ICustomerListProj> getAllCustomersList() {
-        return customerListRepository.getAllCustomerDetails();
+    public List<CustomerList> getAllCustomers() {
+        logger.info("getting all customers detail");
+        return customerListRepository.findAll();
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public List<CustomerList> getAllCustomers(String id) {
+        return customerListRepository.findAllByCustomerId(id);
     }
 
     @Override
-    public CustomerList createCustomer(CustomerList customerList) {
+    public CustomerList createCustomer(CustomerList customerList) throws IOException {
+        logger.info("creating new customer ");
         String list = UUID.randomUUID().toString();
         customerList.setCustomerId(list);
-
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String text = date.format(formatter);
-        LocalDate parsedDate = LocalDate.parse(text, formatter);
-
         return customerListRepository.save(customerList);
     }
 
-    @Override
-    public List<ICustomerListProj> getCustomerById(String id) {
-        return customerListRepository.findByApplicationId(id);
-    }
 
     @Override
     public CustomerList updateCustomer(CustomerList customerList) {
+        logger.info("update customer");
         return customerListRepository.save(customerList);
     }
 
     @Override
     public void deleteCustomer(String id) {
+        logger.info("delete customer");
         customerListRepository.deleteById(id);
     }
+
+    @Override
+    public List<ICustomerListProj> getDeviceAndSite(String id) {
+        return customerListRepository.findByAppId(id);
+    }
+
 }

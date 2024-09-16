@@ -11,55 +11,33 @@ import java.util.List;
 @Repository
 public interface CustomerListRepository extends JpaRepository<CustomerList, String> {
 
-    @Query(value = "SELECT \n" +
-            "    cd.customer_id AS customerId, \n" +
-            "    cd.customer_name AS customerName, \n" +
-            "    cd.address AS address, \n" +
-            "    cd.contact_person AS contactPerson, \n" +
-            "    cd.sub_start_date AS subscriptionStartDate, \n" +
-            "    cd.sub_end_date AS subscriptionEndDate,\n" +
-            "    (\n" +
-            "        SELECT COUNT(DISTINCT dd.device_id) \n" +
-            "        FROM device_details dd \n" +
-            "        WHERE dd.customer_id = cd.customer_id\n" +
-            "    ) AS deviceCount, \n" +
-            "    (\n" +
-            "        SELECT COUNT(DISTINCT sd.site_id) \n" +
-            "        FROM site_details sd \n" +
-            "        WHERE sd.customer_id = cd.customer_id\n" +
-            "    ) AS siteCount\n" +
-            "FROM \n" +
-            "    customer_details cd \n" +
-            "JOIN \n" +
-            "    application_lists ap ON cd.application_id = ap.application_id\n" +
-            "WHERE \n" +
-            "    ap.application_id = ?1",
+    @Query(value =
+            "SELECT " +
+                    "    cd.customer_id AS customerId, " +
+                    "    cd.application_id AS applicationId, " +
+                    "    cd.customer_name AS customerName, " +
+                    "    cd.address AS address, " +
+                    "    cd.contact_person AS contactPerson, " +
+                    "    cd.sub_start_date AS subStartDate, " +
+                    "    cd.sub_end_date AS subEndDate, " +
+                    "    (" +
+                    "        SELECT COUNT(DISTINCT dd.device_id) " +
+                    "        FROM device_details dd " +
+                    "        WHERE dd.customer_id = cd.customer_id" +
+                    "    ) AS deviceCount, " +
+                    "    (" +
+                    "        SELECT COUNT(DISTINCT sd.site_id) " +
+                    "        FROM site_details sd " +
+                    "        WHERE sd.customer_id = cd.customer_id" +
+                    "    ) AS siteCount " +
+                    "FROM " +
+                    "    customer_details cd " +
+                    "JOIN " +
+                    "    application_lists ap ON cd.application_id = ap.application_id " +
+                    "WHERE " +
+                    "    ap.application_id = ?1",
             nativeQuery = true)
-    List<ICustomerListProj> findByApplicationId(String id);
+    List<ICustomerListProj> findByAppId(String id);
 
-    @Query(value = "SELECT \n" +
-            "       cd.customer_id AS customerId, \n" +
-            "       cd.customer_name AS customerName, \n" +
-            "       cd.address AS address, \n" +
-            "       cd.contact_person AS contactPerson, \n" +
-            "       cd.sub_start_date AS subscriptionStartDate, \n" +
-            "       cd.sub_end_date AS subscriptionEndDate,\n" +
-            "       (\n" +
-            "        SELECT COUNT(DISTINCT dd.device_id) \n" +
-            "        FROM device_details dd \n" +
-            "        WHERE dd.customer_id = cd.customer_id\n" +
-            "        ) AS deviceCount, \n" +
-            "        (\n" +
-            "         SELECT COUNT(DISTINCT sd.site_id) \n" +
-            "         FROM site_details sd \n" +
-            "         WHERE sd.customer_id = cd.customer_id\n" +
-            "        ) AS siteCount,\n" +
-            "        (\n" +
-            "        SELECT ap.application_name \n" +
-            "        FROM application_lists ap \n" +
-            "        WHERE ap.application_id = cd.application_id\n" +
-            "        ) AS applicationLists\n" +
-            "FROM \n" +
-            "     customer_details cd", nativeQuery = true)
-    List<ICustomerListProj> getAllCustomerDetails();
+    List<CustomerList> findAllByCustomerId(String id);
 }
