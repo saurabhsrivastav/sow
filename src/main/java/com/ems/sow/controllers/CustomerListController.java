@@ -26,7 +26,7 @@ public class CustomerListController {
     @Autowired
     private CustomerListService customerListService;
 
-    // add new customer
+    // create new customer
     @PostMapping("/add")
     private ResponseEntity<?> createNewCustomer (
             @RequestParam("customerName") String customerName,
@@ -63,34 +63,34 @@ public class CustomerListController {
             );
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(errorResponse);
-
-            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-
         }
-
     }
 
-
-    // get customer by id
-    @GetMapping(value = "/{id}")
-    private ResponseEntity<List<ICustomerListProj>> getCustomerById(@PathVariable String id) {
+    // get All Customers
+    @GetMapping("/all")
+    private ResponseEntity<List<ICustomerListProj>> getAllCustomer() {
         log.info("Calling customer by id : ");
-        ArrayList<String> aList = new ArrayList<>();
-        List<ICustomerListProj> customers = getDeviceAndSiteByCustomerId(id);
+        List<ICustomerListProj> customers = customerListService.getAllCustomers();
         log.info("Response from get customer by id: {}", customers);
         return ResponseEntity.ok().body(customers);
     }
 
     // get customer detail with device and site by customer id
-    private List<ICustomerListProj> getDeviceAndSiteByCustomerId(@PathVariable String id) {
-        log.info("Calling device and site customer by id : ");
-        final List<ICustomerListProj> deviceAndSite = customerListService.getDeviceAndSite(id);
-        log.info("Response customer detail from get customer by id: {}", deviceAndSite);
-        return ResponseEntity.ok(deviceAndSite).getBody();
+    @GetMapping("/{id}")
+    private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String id) {
+        log.info("Calling customer by id : ");
+        List<ICustomerListProj> customers = customerListService.getCustomerByApplicationId(id);
+        log.info("Response from get customer by id: {}", customers);
+        return ResponseEntity.ok().body(customers);
     }
 
-    private String convertImageToBase64(byte[] imageBytes) {
-        return Base64.getEncoder().encodeToString(imageBytes);
+    // load images
+    @GetMapping("/image/{id}")
+    private List<CustomerList> getImage(@PathVariable String id) {
+        log.info("Calling device and site customer by id : ");
+        final List<CustomerList> deviceAndSite = customerListService.loadCustomerImage(id);
+        log.info("Response customer detail from get customer by id: {}", deviceAndSite);
+        return ResponseEntity.ok(deviceAndSite).getBody();
     }
 
     // update
@@ -114,14 +114,6 @@ public class CustomerListController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-
-    @GetMapping ("/test")
-    public ResponseEntity<List<CustomerList>> getAllCustomers() {
-        log.info("calling get customer : ");
-        final List<CustomerList> customersList = customerListService.getAllCustomers();
-        return ResponseEntity.ok(customersList);
     }
 
 }

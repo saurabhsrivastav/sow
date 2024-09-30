@@ -15,11 +15,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /*@Autowired
-    private UserController(UserService userService) {
-        this.userService = userService;
-    }*/
-
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         final User response = userService.addUser(user);

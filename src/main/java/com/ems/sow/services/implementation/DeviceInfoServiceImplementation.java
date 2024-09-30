@@ -1,6 +1,7 @@
 package com.ems.sow.services.implementation;
 
 import com.ems.sow.model.DeviceDetailList;
+import com.ems.sow.projection.IDeviceDetailInfoList;
 import com.ems.sow.repositories.DeviceInfoRepository;
 import com.ems.sow.services.DeviceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +14,28 @@ import java.util.UUID;
 public class DeviceInfoServiceImplementation implements DeviceInfoService {
 
     @Autowired
-    private DeviceInfoRepository infoRepository;
+    private DeviceInfoRepository deviceInfoRepository;
 
     @Override
     public List<DeviceDetailList> getDeviceDetail(String id) {
-        return infoRepository.findByDeviceId(id);
+        return deviceInfoRepository.findDistinctByDeviceId(id);
     }
 
-    /**
-     * @param deviceDetailList
-     * @return
-     */
     @Override
     public DeviceDetailList saveDeviceDetail(DeviceDetailList deviceDetailList) {
         final String uuid = UUID.randomUUID().toString();
         deviceDetailList.setDeviceListId(uuid);
-        return infoRepository.save(deviceDetailList);
+        return deviceInfoRepository.save(deviceDetailList);
     }
+
+    @Override
+    public List<IDeviceDetailInfoList> getDeviceAndSiteDetails(String id) {
+        return deviceInfoRepository.findByDeviceAndSite(id);
+    }
+
+    @Override
+    public List<DeviceDetailList> getDeviceDetailsByCustomerId(String id) {
+        return deviceInfoRepository.findByCustomerId(id);
+    }
+
 }

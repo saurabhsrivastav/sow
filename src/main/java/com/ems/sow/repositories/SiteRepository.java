@@ -11,4 +11,6 @@ public interface SiteRepository extends JpaRepository<SiteDetails, String> {
 
 
     List<SiteDetails> findByCustomerId(String id);
+
+    List<SiteDetails> findBySiteName(String name);
 }

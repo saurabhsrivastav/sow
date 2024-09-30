@@ -18,8 +18,8 @@ public class AlertList {
     private String alertId;
     @Column(name = "alertName", nullable = false, length=50)
     private String alertName;
-    @Column (name = "device", nullable = false, length=50)
-    private String device;
+    @Column (name = "deviceId", nullable = false, length=50)
+    private String deviceId;
     @Column (name = "site", nullable = false, length=50)
     private String site;
     @Column (name = "timestamp", nullable = false)

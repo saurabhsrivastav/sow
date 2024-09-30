@@ -1,5 +1,6 @@
 package com.ems.sow;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,18 +15,17 @@ public class SowApplication {
         SpringApplication.run(SowApplication.class, args);
     }
 
-    @Bean
+   @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Apply CORS settings to all paths
-                        .allowedOrigins("http://localhost:4200") // Allow multiple origins
+                        .allowedOriginPatterns("*") // Allow multiple origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
                         .allowedHeaders("Content-Type", "Authorization") // Allow specific headers
                         .allowCredentials(true); // Allow credentials (cookies, etc.)
             }
         };
     }
-
 }

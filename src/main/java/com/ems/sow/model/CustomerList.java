@@ -24,8 +24,15 @@ public class CustomerList {
     private String subStartDate;
     @Column (nullable = false)
     private String subEndDate;
-    @Column (nullable = false, length=10)
+    @Column (nullable = false)
     @Lob
     private byte[] image;
+    @Transient
+    @Column (nullable = false, length=4)
+    private String deviceCapping;
+    @Transient
+    @Column (nullable = false, length=4)
+    private String siteCapping;
+
     private String applicationId;
 }

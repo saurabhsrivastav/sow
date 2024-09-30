@@ -26,9 +26,9 @@ public class CustomerListImplementation implements CustomerListService {
     private CustomerListRepository customerListRepository;
 
     @Override
-    public List<CustomerList> getAllCustomers() {
+    public List<ICustomerListProj> getAllCustomers() {
         logger.info("getting all customers detail");
-        return customerListRepository.findAll();
+        return customerListRepository.findAllCustomer();
     }
 
     /**
@@ -36,8 +36,8 @@ public class CustomerListImplementation implements CustomerListService {
      * @return
      */
     @Override
-    public List<CustomerList> getAllCustomers(String id) {
-        return customerListRepository.findAllByCustomerId(id);
+    public List<CustomerList> loadCustomerImage(String id) {
+        return customerListRepository.findByCustomerId(id);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class CustomerListImplementation implements CustomerListService {
     }
 
     @Override
-    public List<ICustomerListProj> getDeviceAndSite(String id) {
+    public List<ICustomerListProj> getCustomerByApplicationId(String id) {
         return customerListRepository.findByAppId(id);
     }
 

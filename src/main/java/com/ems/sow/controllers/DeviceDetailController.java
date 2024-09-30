@@ -1,5 +1,6 @@
 package com.ems.sow.controllers;
 
+import com.ems.sow.model.DeviceDetailList;
 import com.ems.sow.model.DeviceList;
 import com.ems.sow.projection.IDeviceDetailList;
 import com.ems.sow.projection.IDeviceListProj;
@@ -15,17 +16,18 @@ import java.util.Optional;
 @RequestMapping("/api/v1/device-details")
 public class DeviceDetailController {
 
-
-    private final DeviceDetailService detailService;
-
     @Autowired
-    public DeviceDetailController(DeviceDetailService detailService) {
-        this.detailService = detailService;
-    }
+    private DeviceDetailService detailService;
 
     @PostMapping
-    public ResponseEntity<DeviceList> saveDeviceDetails(@RequestBody DeviceList deviceDetails) {
+    public ResponseEntity<?> addDevice(@RequestBody DeviceList deviceDetails) {
         final DeviceList deviceList = detailService.saveDeviceDetails(deviceDetails);
+        return ResponseEntity.ok(deviceList);
+    }
+ 
+    @PutMapping
+    public ResponseEntity<DeviceList> updateDevice(@RequestBody DeviceList deviceDetails) {
+        final DeviceList deviceList = detailService.updateDeviceDetails(deviceDetails);
         return ResponseEntity.ok(deviceList);
     }
     @GetMapping
@@ -39,24 +41,16 @@ public class DeviceDetailController {
         return ResponseEntity.ok(deviceDetails);
     }
 
-    /**
-     * find device details by customer id
-     * @param id
-     * @return
-     */
     @GetMapping("/list/{id}")
     public ResponseEntity<Optional<List<IDeviceDetailList>>> getDevices(@PathVariable("id") String id) {
         final Optional<List<IDeviceDetailList>> deviceDetails = detailService.getDevices(id);
         return ResponseEntity.ok(deviceDetails);
     }
 
-    /**
-     * find device details (all device, online, offline, power failure)
-     * @param id
-     * @return
-     */
     @GetMapping("/device-list/{id}")
-    public ResponseEntity<List<IDeviceListProj>> getAllDevice(@PathVariable("id") String id) {
+    public ResponseEntity<List<IDeviceListProj>> getDeviceById(@PathVariable("id") String id) {
         return ResponseEntity.ok(detailService.findDevice(id));
     }
+
+
 }

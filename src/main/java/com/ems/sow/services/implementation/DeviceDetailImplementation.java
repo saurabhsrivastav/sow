@@ -18,11 +18,6 @@ public class DeviceDetailImplementation implements DeviceDetailService {
     @Autowired
     private DeviceDetailRepository repository;
 
-
-    /**
-     * @param id
-     * @return
-     */
     @Override
     public Optional<IDeviceDetailList> getDeviceDetails(String id) {
         return Optional.empty();
@@ -45,12 +40,20 @@ public class DeviceDetailImplementation implements DeviceDetailService {
         return repository.findByCustId(id);
     }
 
-    /**
-     * @param id
-     * @return
-     */
     @Override
     public List<IDeviceListProj> findDevice(String id) {
         return repository.findDevice(id);
+    }
+
+    @Override
+    public DeviceList updateDeviceDetails(DeviceList deviceDetails) {
+
+        final String deviceName = deviceDetails.getDeviceName();
+        final List<DeviceList> responseByDeviceName = repository.findByDeviceName(deviceName);
+        for (DeviceList list : responseByDeviceName) {
+            list.setStatus(false);
+            repository.save(list);
+        }
+        return deviceDetails;
     }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface AlertListRepository extends JpaRepository<AlertList, String> {
 
     List<AlertList> findByCustomerId(String id);
+
+    List<AlertList> findByDeviceId(String id);
 }

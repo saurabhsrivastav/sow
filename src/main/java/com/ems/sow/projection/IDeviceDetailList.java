@@ -3,9 +3,10 @@ package com.ems.sow.projection;
 public interface IDeviceDetailList {
     String getDeviceId();
     String getDeviceName();
-    String getModel();
+    String getModelNumber();
     String getSerialNumber();
-    String getSiteName();
+    String getDeviceCategory();
     Boolean getStatus();
     String getDeviceStatus();
+    String getCustomerId();
 }

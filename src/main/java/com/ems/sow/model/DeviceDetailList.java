@@ -31,10 +31,14 @@ public class DeviceDetailList {
     private Integer cabinetTemperature;
     @Column(nullable = false, length=3)
     private Integer ambientTemperature;
+    @Column(nullable = false, length=3)
     private Date installationDate = new Date();
+    @Column(nullable = false, length=3)
     private Date manufacturingDate = new Date();
     @Column(nullable = false, length=40)
     private String deviceId;
+    @Column(nullable = false, length=40)
+    private String customerId;
 
    /* @PrePersist
     public void prePersist() {

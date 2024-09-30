@@ -20,7 +20,7 @@ public class SiteDetailImplementation implements SiteService {
     }
 
     @Override
-    public List<SiteDetails> getSiteById(String id) {
+    public List<SiteDetails> getSiteByCustomerId(String id) {
         return siteRepository.findByCustomerId(id);
     }
 
@@ -30,5 +30,10 @@ public class SiteDetailImplementation implements SiteService {
         String siteId = UUID.randomUUID().toString();
         siteDetails.setSiteId(siteId);
         return siteRepository.save(siteDetails);
+    }
+
+    @Override
+    public List<SiteDetails> getSiteByName(String name) {
+        return siteRepository.findBySiteName(name);
     }
 }

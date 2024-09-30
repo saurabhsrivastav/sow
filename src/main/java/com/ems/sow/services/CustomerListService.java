@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface CustomerListService {
 
-    List<CustomerList> getAllCustomers();
+    List<ICustomerListProj> getAllCustomers();
 
-    List<CustomerList> getAllCustomers(String id);
+    List<CustomerList> loadCustomerImage(String id);
 
     CustomerList createCustomer(CustomerList customerList) throws IOException;
 
@@ -17,5 +17,5 @@ public interface CustomerListService {
 
     void deleteCustomer(String id);
 
-    List<ICustomerListProj> getDeviceAndSite(String id);
+    List<ICustomerListProj> getCustomerByApplicationId(String id);
 }

@@ -8,4 +8,5 @@ public interface AlertListService {
 
     List<AlertList> getAlertByCustomerId(String id);
 
+    List<AlertList> getAlertByDeviceId(String id);
 }

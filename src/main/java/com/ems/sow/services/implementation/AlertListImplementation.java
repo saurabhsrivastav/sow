@@ -8,24 +8,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Alert List Implementation
- */
-
 @Service
 public class AlertListImplementation implements AlertListService {
 
     @Autowired
     private AlertListRepository alertListRepository;
 
-    /**
-     * Get All Alert List
-     *
-     * @param id
-     * @return
-     */
     @Override
     public List<AlertList> getAlertByCustomerId(String id) {
         return alertListRepository.findByCustomerId(id);
+    }
+
+    @Override
+    public List<AlertList> getAlertByDeviceId(String id) {
+        return alertListRepository.findByDeviceId(id);
     }
 }

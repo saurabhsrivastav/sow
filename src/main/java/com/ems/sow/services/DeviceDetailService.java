@@ -18,4 +18,6 @@ public interface DeviceDetailService {
     Optional<List<IDeviceDetailList>> getDevices(String id);
 
     List<IDeviceListProj> findDevice(String id);
+
+    DeviceList updateDeviceDetails(DeviceList deviceDetails);
 }

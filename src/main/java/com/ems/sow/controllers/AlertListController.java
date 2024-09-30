@@ -7,21 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/alerts")
 public class AlertListController {
 
+    Logger logger = Logger.getLogger(AlertListController.class.getName());
+
     @Autowired
     private AlertListService alertListService;
 
-    /**
-     * Get All Alert List
-     *
-     * @return
-     */
     @GetMapping(value = "/{id}")
     private ResponseEntity<List<AlertList>> getAlertByCustomerId(@PathVariable String id) {
+        logger.info("entered in getAlertByCustomerId <" + id + "> customer id");
         return ResponseEntity.ok(alertListService.getAlertByCustomerId(id));
+    }
+
+    @GetMapping(value = "/device/{id}")
+    private ResponseEntity<List<AlertList>> getAlertByDeviceId(@PathVariable String id) {
+        return ResponseEntity.ok(alertListService.getAlertByDeviceId(id));
     }
 }
