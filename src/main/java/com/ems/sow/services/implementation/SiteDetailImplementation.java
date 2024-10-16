@@ -1,6 +1,7 @@
 package com.ems.sow.services.implementation;
 
 import com.ems.sow.model.SiteDetails;
+import com.ems.sow.projection.ISiteDetailsProj;
 import com.ems.sow.repositories.SiteRepository;
 import com.ems.sow.services.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class SiteDetailImplementation implements SiteService {
     }
 
     @Override
-    public List<SiteDetails> getSiteByName(String name) {
-        return siteRepository.findBySiteName(name);
+    public List<ISiteDetailsProj> getSiteById(String id) {
+        return siteRepository.findBySiteIdDetails(id);
     }
 }

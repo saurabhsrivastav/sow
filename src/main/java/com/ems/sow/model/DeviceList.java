@@ -3,9 +3,6 @@ package com.ems.sow.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,6 +27,8 @@ public class DeviceList {
     private String deviceStatus;
     @Column(nullable = false, length=40)
     private String customerId;
+    @Column(length=40)
+    private String siteId;
     @Column(nullable = false)
     private boolean status;
     //@Column (length=3)

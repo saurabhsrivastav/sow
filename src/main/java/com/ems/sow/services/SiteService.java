@@ -1,6 +1,7 @@
 package com.ems.sow.services;
 
 import com.ems.sow.model.SiteDetails;
+import com.ems.sow.projection.ISiteDetailsProj;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface SiteService {
 
     SiteDetails createSite(SiteDetails siteDetails);
 
-    List<SiteDetails> getSiteByName(String name);
+    List<ISiteDetailsProj> getSiteById(String Id);
 }

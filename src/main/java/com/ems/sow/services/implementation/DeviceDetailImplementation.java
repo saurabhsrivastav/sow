@@ -19,11 +19,6 @@ public class DeviceDetailImplementation implements DeviceDetailService {
     private DeviceDetailRepository repository;
 
     @Override
-    public Optional<IDeviceDetailList> getDeviceDetails(String id) {
-        return Optional.empty();
-    }
-
-    @Override
     public List<DeviceList> getAllDeviceDetails() {
         return repository.findAll();
     }
@@ -37,23 +32,55 @@ public class DeviceDetailImplementation implements DeviceDetailService {
 
     @Override
     public Optional<List<IDeviceDetailList>> getDevices(String id) {
-        return repository.findByCustId(id);
+        return repository.findDeviceDetailsByCustomerId(id);
     }
 
     @Override
-    public List<IDeviceListProj> findDevice(String id) {
-        return repository.findDevice(id);
+    public List<IDeviceListProj> findDeviceStatus(String id) {
+        return repository.findDeviceStatus(id);
     }
 
     @Override
     public DeviceList updateDeviceDetails(DeviceList deviceDetails) {
-
         final String deviceName = deviceDetails.getDeviceName();
+        final String siteId = deviceDetails.getSiteId();
+        final boolean status = deviceDetails.isStatus();
         final List<DeviceList> responseByDeviceName = repository.findByDeviceName(deviceName);
         for (DeviceList list : responseByDeviceName) {
-            list.setStatus(false);
+            list.setStatus(status);
+            list.setSiteId(siteId);
             repository.save(list);
         }
         return deviceDetails;
+    }
+
+    @Override
+    public List<DeviceList> getDeviceByCustomerId(String id) {
+            return repository.findAllByCustomerIdAndStatus(id, false);
+    }
+
+    /**
+     * @param deviceDetails
+     * @return
+     */
+    @Override
+    public DeviceList uninstallDevice(DeviceList deviceDetails) {
+        final String deviceId = deviceDetails.getDeviceId();
+        final boolean status = deviceDetails.isStatus();
+        final List<DeviceList> responseByDeviceName = repository.findByDeviceId(deviceId);
+        for (DeviceList list : responseByDeviceName) {
+            list.setStatus(status);
+            repository.save(list);
+        }
+        return deviceDetails;
+    }
+
+    /**
+     * @param deviceId
+     * @return
+     */
+    @Override
+    public List<DeviceList> findDeviceByDeviceId(String deviceId) {
+        return repository.findByDeviceId(deviceId);
     }
 }

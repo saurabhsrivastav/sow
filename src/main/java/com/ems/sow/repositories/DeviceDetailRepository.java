@@ -21,12 +21,14 @@ public interface DeviceDetailRepository extends JpaRepository<DeviceList, String
             "    de.serial_number AS serialNumber, \n" +
             "    de.device_category AS deviceCategory, \n" +
             "    de.customer_id AS customerId, \n" +
+            "    de.status AS status, \n" +
             "    de.device_status AS deviceStatus, \n" +
-            "    STRING_AGG(DISTINCT al.alert_name, ', ') AS alert\n" +
+            "    STRING_AGG(DISTINCT al.alert_name, ', ') AS alert, \n" +
+            "    (SELECT se.site_name \n" +
+            "     FROM site_details se \n" +
+            "     WHERE se.site_id = de.site_id) AS siteName\n" +
             "FROM \n" +
-            "    device_details de \n" +
-            "JOIN \n" +
-            "    site_details si ON de.customer_id = si.customer_id\n" +
+            "    device_details de\n" +
             "LEFT JOIN \n" +
             "    alert_lists al ON al.customer_id = de.customer_id\n" +
             "WHERE \n" +
@@ -34,10 +36,7 @@ public interface DeviceDetailRepository extends JpaRepository<DeviceList, String
             "GROUP BY \n" +
             "    de.device_id, de.device_name, de.model_number, de.serial_number, \n" +
             "    de.device_category, de.customer_id, de.device_status", nativeQuery = true)
-    Optional<List<IDeviceDetailList>> findByCustId(String id);
-
-
-    List<DeviceList> findByCustomerId(String id);
+    Optional<List<IDeviceDetailList>> findDeviceDetailsByCustomerId(String id);
 
     @Query(value = "SELECT \n" +
             "    COUNT(*) AS all_devices,\n" +
@@ -48,7 +47,11 @@ public interface DeviceDetailRepository extends JpaRepository<DeviceList, String
             "    device_details dd\n" +
             "WHERE \n" +
             "    dd.customer_id = ?1", nativeQuery = true)
-    List<IDeviceListProj> findDevice(String id);
+    List<IDeviceListProj> findDeviceStatus(String id);
 
     List<DeviceList> findByDeviceName(String deviceId);
+
+    List<DeviceList> findAllByCustomerIdAndStatus(String id, boolean status);
+
+    List<DeviceList> findByDeviceId(String deviceId);
 }

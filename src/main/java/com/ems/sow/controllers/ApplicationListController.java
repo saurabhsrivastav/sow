@@ -4,6 +4,7 @@ import com.ems.sow.model.ApplicationList;
 import com.ems.sow.projection.IApplicationListProj;
 import com.ems.sow.services.ApplicationListService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/application-list")
 public class ApplicationListController {
 
-    Logger logger = org.slf4j.LoggerFactory.getLogger(ApplicationListController.class);
+    Logger logger = LoggerFactory.getLogger(ApplicationListController.class);
 
     @Autowired
     private ApplicationListService applicationListService;
@@ -24,7 +25,7 @@ public class ApplicationListController {
     @PostMapping
     private ResponseEntity<ApplicationList> createApplication(@RequestBody ApplicationList list) {
         logger.info("Request to create application {}", list);
-            final ApplicationList application = applicationListService.createApplication(list);
+        final ApplicationList application = applicationListService.createNewApplication(list);
         return ResponseEntity.status(HttpStatus.CREATED).body(application);
     }
 

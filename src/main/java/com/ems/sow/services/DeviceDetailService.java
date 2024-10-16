@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface DeviceDetailService {
 
-    Optional<IDeviceDetailList> getDeviceDetails(String id);
 
     List<DeviceList> getAllDeviceDetails();
 
@@ -17,7 +16,13 @@ public interface DeviceDetailService {
 
     Optional<List<IDeviceDetailList>> getDevices(String id);
 
-    List<IDeviceListProj> findDevice(String id);
+    List<IDeviceListProj> findDeviceStatus(String id);
 
     DeviceList updateDeviceDetails(DeviceList deviceDetails);
+
+    List<DeviceList> getDeviceByCustomerId(String id);
+
+    DeviceList uninstallDevice(DeviceList deviceDetails);
+
+    List<DeviceList>findDeviceByDeviceId(String deviceId);
 }

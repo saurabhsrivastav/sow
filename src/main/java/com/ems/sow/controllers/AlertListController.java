@@ -1,4 +1,4 @@
-package com.ems.sow.controllers;
+                                     package com.ems.sow.controllers;
 
 import com.ems.sow.model.AlertList;
 import com.ems.sow.services.AlertListService;
@@ -19,13 +19,14 @@ public class AlertListController {
     private AlertListService alertListService;
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<List<AlertList>> getAlertByCustomerId(@PathVariable String id) {
+    private ResponseEntity<List<AlertList>> getAlertDetailsByCustomerId(@PathVariable String id) {
         logger.info("entered in getAlertByCustomerId <" + id + "> customer id");
         return ResponseEntity.ok(alertListService.getAlertByCustomerId(id));
     }
 
     @GetMapping(value = "/device/{id}")
     private ResponseEntity<List<AlertList>> getAlertByDeviceId(@PathVariable String id) {
+        logger.info("entered in getAlertByDeviceId <" + id + "> Device Id");
         return ResponseEntity.ok(alertListService.getAlertByDeviceId(id));
     }
 }

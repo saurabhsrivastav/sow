@@ -26,7 +26,7 @@ public class CustomerListController {
     @Autowired
     private CustomerListService customerListService;
 
-    // create new customer
+    // add new customer
     @PostMapping("/add")
     private ResponseEntity<?> createNewCustomer (
             @RequestParam("customerName") String customerName,
@@ -34,6 +34,8 @@ public class CustomerListController {
             @RequestParam("contactPerson") String contactPerson,
             @RequestParam("subStartDate") String subStartDate,
             @RequestParam("subEndDate") String subEndDate,
+            @RequestParam("deviceCapping") String deviceCapping,
+            @RequestParam("siteCapping") String siteCapping,
             @RequestParam("applicationId") String applicationId,
             @RequestPart("image") MultipartFile file) throws IOException {
 
@@ -45,6 +47,8 @@ public class CustomerListController {
                 .contactPerson(contactPerson)
                 .subStartDate(subStartDate)
                 .subEndDate(subEndDate)
+                .deviceCapping(deviceCapping)
+                .siteCapping(siteCapping)
                 .applicationId(applicationId)
                 .image(file.getBytes())
                 .build();

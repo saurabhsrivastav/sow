@@ -20,6 +20,8 @@ public interface CustomerListRepository extends JpaRepository<CustomerList, Stri
                     "    cd.contact_person AS contactPerson,\n" +
                     "    cd.sub_start_date AS subStartDate, \n" +
                     "    cd.sub_end_date AS subEndDate,\n" +
+                    "    cd.device_capping AS deviceCapping, \n" +
+                    "    cd.site_capping AS siteCapping,\n" +
                     "    COUNT(DISTINCT dd.device_id) AS deviceCount,\n" +
                     "    COUNT(DISTINCT sd.site_id) AS siteCount\n" +
                     "FROM \n" +

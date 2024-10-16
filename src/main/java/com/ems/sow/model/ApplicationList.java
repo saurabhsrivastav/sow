@@ -13,7 +13,7 @@ public class ApplicationList {
     @Id
     @Column(nullable = false, length=40)
     private String applicationId;
-    @Column (nullable = false, length=100)
+    @Column (nullable = false, length=50)
     private String applicationName;
     @Column (nullable = false, length=255)
     private String description;

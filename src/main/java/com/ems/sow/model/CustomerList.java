@@ -18,21 +18,20 @@ public class CustomerList {
     private String customerName;
     @Column (nullable = false, length=255)
     private String address;
-    @Column (nullable = false, length=100)
+    @Column (nullable = false, length=50)
     private String contactPerson;
     @Column (nullable = false)
     private String subStartDate;
     @Column (nullable = false)
     private String subEndDate;
-    @Column (nullable = false)
+    @Column
     @Lob
     private byte[] image;
-    @Transient
     @Column (nullable = false, length=4)
     private String deviceCapping;
-    @Transient
     @Column (nullable = false, length=4)
     private String siteCapping;
-
     private String applicationId;
+
+
 }

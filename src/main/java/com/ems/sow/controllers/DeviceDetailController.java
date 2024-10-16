@@ -19,25 +19,9 @@ public class DeviceDetailController {
     @Autowired
     private DeviceDetailService detailService;
 
-    @PostMapping
-    public ResponseEntity<?> addDevice(@RequestBody DeviceList deviceDetails) {
-        final DeviceList deviceList = detailService.saveDeviceDetails(deviceDetails);
-        return ResponseEntity.ok(deviceList);
-    }
- 
-    @PutMapping
-    public ResponseEntity<DeviceList> updateDevice(@RequestBody DeviceList deviceDetails) {
-        final DeviceList deviceList = detailService.updateDeviceDetails(deviceDetails);
-        return ResponseEntity.ok(deviceList);
-    }
-    @GetMapping
-    public ResponseEntity<List<DeviceList>> getAllDeviceDetails() {
-        return ResponseEntity.ok(detailService.getAllDeviceDetails());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<IDeviceDetailList>> getDeviceDetails(@PathVariable("id") String id) {
-        final Optional<IDeviceDetailList> deviceDetails = detailService.getDeviceDetails(id);
+    @GetMapping("/lists/{id}")
+    public ResponseEntity<List<DeviceList>> getUnregisteredDevicesList(@PathVariable("id") String id) {
+        final List<DeviceList> deviceDetails = detailService.getDeviceByCustomerId(id);
         return ResponseEntity.ok(deviceDetails);
     }
 
@@ -49,8 +33,41 @@ public class DeviceDetailController {
 
     @GetMapping("/device-list/{id}")
     public ResponseEntity<List<IDeviceListProj>> getDeviceById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(detailService.findDevice(id));
+        return ResponseEntity.ok(detailService.findDeviceStatus(id));
     }
 
+    @GetMapping("/device-by-id/{id}")
+    public ResponseEntity<List<DeviceList>> getDeviceByDeviceId(@PathVariable("id") String id) {
+        return ResponseEntity.ok(detailService.findDeviceByDeviceId(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DeviceList>> getAllDeviceDetails() {
+        return ResponseEntity.ok(detailService.getAllDeviceDetails());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addDevice(@RequestBody DeviceList deviceDetails) {
+        final DeviceList deviceList = detailService.saveDeviceDetails(deviceDetails);
+        return ResponseEntity.ok(deviceList);
+    }
+ 
+    @PutMapping
+    public ResponseEntity<DeviceList> updateDevice(@RequestBody DeviceList deviceDetails) {
+        final DeviceList deviceList = detailService.updateDeviceDetails(deviceDetails);
+        return ResponseEntity.ok(deviceList);
+    }
+
+    @PutMapping("/uninstall")
+    public ResponseEntity<DeviceList> unistalledDevice(@RequestBody DeviceList deviceDetails) {
+        final DeviceList deviceList = detailService.uninstallDevice(deviceDetails);
+        return ResponseEntity.ok(deviceList);
+    }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Optional<IDeviceDetailList>> getDeviceDetails(@PathVariable("id") String id) {
+//        final Optional<IDeviceDetailList> deviceDetails = detailService.getDeviceDetails(id);
+//        return ResponseEntity.ok(deviceDetails);
+//    }
 
 }

@@ -9,5 +9,7 @@ public interface ICustomerListProj {
     String getSubEndDate();
     String getDeviceCount();
     String getSiteCount();
+    String getDeviceCapping();
+    String getSiteCapping();
     String getApplicationId();
 }
