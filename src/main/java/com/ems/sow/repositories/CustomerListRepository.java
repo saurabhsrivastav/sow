@@ -22,7 +22,7 @@ public interface CustomerListRepository extends JpaRepository<CustomerList, Stri
                     "    cd.sub_end_date AS subEndDate,\n" +
                     "    cd.device_capping AS deviceCapping, \n" +
                     "    cd.site_capping AS siteCapping,\n" +
-                    "    COUNT(DISTINCT dd.device_id) AS deviceCount,\n" +
+                    "    COUNT(DISTINCT dd.rtu_id) AS deviceCount,\n" +
                     "    COUNT(DISTINCT sd.site_id) AS siteCount\n" +
                     "FROM \n" +
                     "    customer_details cd\n" +
@@ -30,7 +30,7 @@ public interface CustomerListRepository extends JpaRepository<CustomerList, Stri
                     "    application_lists ap \n" +
                     "    ON cd.application_id = ap.application_id\n" +
                     "LEFT JOIN \n" +
-                    "    device_details dd \n" +
+                    "    rtu_details dd \n" +
                     "    ON cd.customer_id = dd.customer_id\n" +
                     "LEFT JOIN \n" +
                     "    site_details sd \n" +
@@ -61,12 +61,12 @@ public interface CustomerListRepository extends JpaRepository<CustomerList, Stri
                     "    cd.contact_person AS contactPerson,\n" +
                     "    cd.sub_start_date AS subStartDate,\n" +
                     "    cd.sub_end_date AS subEndDate,\n" +
-                    "    COUNT(DISTINCT dd.device_id) AS deviceCount,\n" +
+                    "    COUNT(DISTINCT dd.rtu_id) AS deviceCount,\n" +
                     "    COUNT(DISTINCT sd.site_id) AS siteCount\n" +
                     "FROM \n" +
                     "    customer_details cd\n" +
                     "LEFT JOIN \n" +
-                    "    device_details dd ON cd.customer_id = dd.customer_id\n" +
+                    "    rtu_details dd ON cd.customer_id = dd.customer_id\n" +
                     "LEFT JOIN \n" +
                     "    site_details sd ON cd.customer_id = sd.customer_id\n" +
                     "GROUP BY \n" +

@@ -14,4 +14,5 @@ public interface SiteService {
     SiteDetails createSite(SiteDetails siteDetails);
 
     List<ISiteDetailsProj> getSiteById(String Id);
+
 }

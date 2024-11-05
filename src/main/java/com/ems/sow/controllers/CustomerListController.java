@@ -73,16 +73,15 @@ public class CustomerListController {
     // get All Customers
     @GetMapping("/all")
     private ResponseEntity<List<ICustomerListProj>> getAllCustomer() {
-        log.info("Calling customer by id : ");
+        log.info("Calling getAllCustomer () : ");
         List<ICustomerListProj> customers = customerListService.getAllCustomers();
-        log.info("Response from get customer by id: {}", customers);
         return ResponseEntity.ok().body(customers);
     }
 
     // get customer detail with device and site by customer id
     @GetMapping("/{id}")
     private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String id) {
-        log.info("Calling customer by id : ");
+        log.info("Calling getCustomerByApplicationId() : ");
         List<ICustomerListProj> customers = customerListService.getCustomerByApplicationId(id);
         log.info("Response from get customer by id: {}", customers);
         return ResponseEntity.ok().body(customers);

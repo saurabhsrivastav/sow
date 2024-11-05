@@ -1,6 +1,7 @@
 package com.ems.sow.services.implementation;
 
 import com.ems.sow.model.SiteDetails;
+import com.ems.sow.projection.IDeviceDetailList;
 import com.ems.sow.projection.ISiteDetailsProj;
 import com.ems.sow.repositories.SiteRepository;
 import com.ems.sow.services.SiteService;
@@ -37,4 +38,5 @@ public class SiteDetailImplementation implements SiteService {
     public List<ISiteDetailsProj> getSiteById(String id) {
         return siteRepository.findBySiteIdDetails(id);
     }
+
 }

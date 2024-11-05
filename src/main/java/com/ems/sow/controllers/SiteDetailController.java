@@ -87,5 +87,6 @@ public class SiteDetailController {
         final List<ISiteDetailsProj> siteByName = siteService.getSiteById(id);
         return ResponseEntity.ok(siteByName);
     }
+
 }
 

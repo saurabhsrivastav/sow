@@ -39,5 +39,4 @@ public class DeviceDetailInfoController {
         final List<DeviceDetailList> deviceDetail = deviceInfoService.getDeviceDetailsByCustomerId(customerId);
         return ResponseEntity.ok(deviceDetail);
     }
-
 }

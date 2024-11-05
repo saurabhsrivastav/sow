@@ -4,5 +4,5 @@ public interface IDeviceListProj {
    String getAllDevices();
    String getOnline();
    String getOffline();
-   String getPowerfailure();
+   String getPowerFailure();
 }

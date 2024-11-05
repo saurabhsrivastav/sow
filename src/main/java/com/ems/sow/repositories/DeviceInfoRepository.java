@@ -12,7 +12,7 @@ import java.util.List;
 public interface DeviceInfoRepository extends JpaRepository<DeviceDetailList, String> {
 
     @Query(value = "SELECT DISTINCT sd.site_name AS siteName, dd.device_name AS deviceName\n" +
-            "FROM device_details dd\n" +
+            "FROM rtu_details dd\n" +
             "JOIN site_details sd\n" +
             "ON dd.customer_id = sd.customer_id\n" +
             "WHERE dd.customer_id = ?1\n" +

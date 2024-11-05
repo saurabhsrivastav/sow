@@ -9,20 +9,20 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "device_details")
-public class DeviceList {
+@Table(name = "rtu_details")
+public class RtuDetails {
 
     @Id
     @Column(nullable = false, length=40)
-    private String deviceId;
+    private String rtuId;
     @Column (nullable = false, length=50)
     private String modelNumber;
     @Column (nullable = false, length=50)
     private String serialNumber;
     @Column(nullable = false, length=50)
-    private String deviceName;
+    private String rtuName;
     @Column (nullable = false, length=50)
-    private String deviceCategory;
+    private String rtuCategory;
     @Column (nullable = false, length=20)
     private String deviceStatus;
     @Column(nullable = false, length=40)
@@ -31,12 +31,13 @@ public class DeviceList {
     private String siteId;
     @Column(nullable = false)
     private boolean status;
-    //@Column (length=3)
-    //private Integer deviceParameter;
-/*
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="device_list_fk", referencedColumnName = "deviceId")
-    List<DeviceParameter> deviceParameter = new ArrayList<>();
-*/
-
+//
+//
+//
+//    @PrePersist
+//    public void prePersist() {
+//        if (this.deviceName == null) {
+//            this.deviceName = "";
+//        }
+//    }
 }

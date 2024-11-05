@@ -1,6 +1,6 @@
 package com.ems.sow.services.implementation;
 
-import com.ems.sow.model.DeviceList;
+import com.ems.sow.model.RtuDetails;
 import com.ems.sow.projection.IDeviceDetailList;
 import com.ems.sow.projection.IDeviceListProj;
 import com.ems.sow.repositories.DeviceDetailRepository;
@@ -19,14 +19,14 @@ public class DeviceDetailImplementation implements DeviceDetailService {
     private DeviceDetailRepository repository;
 
     @Override
-    public List<DeviceList> getAllDeviceDetails() {
+    public List<RtuDetails> getAllDeviceDetails() {
         return repository.findAll();
     }
 
     @Override
-    public DeviceList saveDeviceDetails(DeviceList deviceDetails) {
+    public RtuDetails saveDeviceDetails(RtuDetails deviceDetails) {
         final String deviceId = UUID.randomUUID().toString();
-        deviceDetails.setDeviceId(deviceId);
+        deviceDetails.setRtuId(deviceId);
         return repository.save(deviceDetails);
     }
 
@@ -41,12 +41,12 @@ public class DeviceDetailImplementation implements DeviceDetailService {
     }
 
     @Override
-    public DeviceList updateDeviceDetails(DeviceList deviceDetails) {
-        final String deviceName = deviceDetails.getDeviceName();
+    public RtuDetails updateDeviceDetails(RtuDetails deviceDetails) {
+        final String serialNumber = deviceDetails.getSerialNumber();
         final String siteId = deviceDetails.getSiteId();
         final boolean status = deviceDetails.isStatus();
-        final List<DeviceList> responseByDeviceName = repository.findByDeviceName(deviceName);
-        for (DeviceList list : responseByDeviceName) {
+        final List<RtuDetails> responseByDeviceName = repository.findBySerialNumber(serialNumber);
+        for (RtuDetails list : responseByDeviceName) {
             list.setStatus(status);
             list.setSiteId(siteId);
             repository.save(list);
@@ -55,32 +55,30 @@ public class DeviceDetailImplementation implements DeviceDetailService {
     }
 
     @Override
-    public List<DeviceList> getDeviceByCustomerId(String id) {
+    public List<RtuDetails> getDeviceByCustomerId(String id) {
             return repository.findAllByCustomerIdAndStatus(id, false);
     }
 
-    /**
-     * @param deviceDetails
-     * @return
-     */
     @Override
-    public DeviceList uninstallDevice(DeviceList deviceDetails) {
-        final String deviceId = deviceDetails.getDeviceId();
+    public RtuDetails uninstallDevice(RtuDetails deviceDetails) {
+        final String rtuId = deviceDetails.getRtuId();
         final boolean status = deviceDetails.isStatus();
-        final List<DeviceList> responseByDeviceName = repository.findByDeviceId(deviceId);
-        for (DeviceList list : responseByDeviceName) {
+        final List<RtuDetails> responseByDeviceName = repository.findByRtuId(rtuId);
+        for (RtuDetails list : responseByDeviceName) {
             list.setStatus(status);
             repository.save(list);
         }
         return deviceDetails;
     }
 
-    /**
-     * @param deviceId
-     * @return
-     */
     @Override
-    public List<DeviceList> findDeviceByDeviceId(String deviceId) {
-        return repository.findByDeviceId(deviceId);
+    public List<RtuDetails> findDeviceByRtuId(String rtuId) {
+        return repository.findByRtuId(rtuId);
     }
+
+    @Override
+    public List<RtuDetails> findSerialNumbersByCustomerId(String customerId) {
+        return repository.findByCustomerId(customerId);
+    }
+
 }
