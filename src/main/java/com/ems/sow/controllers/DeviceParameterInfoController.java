@@ -22,6 +22,8 @@ public class DeviceParameterInfoController {
     public ResponseEntity<List<InstallDeviceParameters>> getDeviceParameters(@PathVariable String serialNumber,
                                                                                              @PathVariable String deviceModbus) {
         final List<InstallDeviceParameters> deviceDetailLists = deviceParameterInfoService.getDeviceParameters(serialNumber, deviceModbus);
+
+
         return ResponseEntity.ok(deviceDetailLists);
     }
 }

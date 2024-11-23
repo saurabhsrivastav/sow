@@ -5,7 +5,7 @@ public interface ISiteDetailsProj {
     String getSiteAddress();
     String getGeofenceRadius();
     String getLocation();
-    String getDeviceName();
+    String getRtuName();
     String getSiteId();
 
 }

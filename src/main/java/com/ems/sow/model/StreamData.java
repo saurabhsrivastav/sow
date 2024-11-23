@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -24,7 +25,7 @@ public class StreamData {
     @Column(nullable = false, length=50)
     private String mdbid;
     @Column(nullable = false)
-    private Date eventTimestamp;
+    private Timestamp eventTimestamp;
     @Column(nullable = false)
     private Integer recType;
     @Column(nullable = false, length=50)
