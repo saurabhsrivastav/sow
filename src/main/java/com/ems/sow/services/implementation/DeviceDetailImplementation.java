@@ -25,9 +25,17 @@ public class DeviceDetailImplementation implements DeviceDetailService {
 
     @Override
     public RtuDetails saveDeviceDetails(RtuDetails deviceDetails) {
-        final String deviceId = UUID.randomUUID().toString();
-        deviceDetails.setRtuId(deviceId);
-        return repository.save(deviceDetails);
+        List<RtuDetails> response = findByCustomerIdAndSerialNumber(deviceDetails.getCustomerId(), deviceDetails.getSerialNumber());
+
+        if(!response.isEmpty()) {
+            RtuDetails existingDevice = response.get(0);
+            existingDevice.setStatus(true);
+            return existingDevice;
+        } else {
+            final String deviceId = UUID.randomUUID().toString();
+            deviceDetails.setRtuId(deviceId);
+            return repository.save(deviceDetails);
+        }
     }
 
     @Override
@@ -76,9 +84,18 @@ public class DeviceDetailImplementation implements DeviceDetailService {
         return repository.findByRtuId(rtuId);
     }
 
+    /**
+     * @param customerId
+     * @return
+     */
     @Override
     public List<RtuDetails> findSerialNumbersByCustomerId(String customerId) {
         return repository.findByCustomerId(customerId);
+    }
+
+    @Override
+    public List<RtuDetails> findByCustomerIdAndSerialNumber(String customerId, String SerialNumber) {
+        return repository.findByCustomerIdAndSerialNumber(customerId, SerialNumber);
     }
 
 }
