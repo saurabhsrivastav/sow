@@ -57,4 +57,6 @@ public interface DeviceDetailRepository extends JpaRepository<RtuDetails, String
 
     List<RtuDetails> findByCustomerId(String customerId);
 
+    List<RtuDetails>findByCustomerIdAndSerialNumber(String customerId, String serialNumber);
+
 }

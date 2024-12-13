@@ -13,23 +13,21 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
-    /**
-     * @param passcode
-     * @return
-     */
-    @Override
-    public User findByPasscode(String passcode) {
-        return repository.findByPasscode(passcode);
-    }
 
-    /**
-     * @param user
-     * @return
-     */
+//    @Override
+//    public User findByPasscode(String passcode) {
+//        return repository.findByPasscode(passcode);
+//    }
+
     @Override
-    public User addUser(User user) {
+    public User register(User user) {
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
         return repository.save(user);
+    }
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        return repository.findByEmailAndPassword(email, password);
     }
 }

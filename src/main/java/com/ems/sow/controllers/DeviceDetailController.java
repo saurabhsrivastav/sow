@@ -52,7 +52,7 @@ public class DeviceDetailController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addDevice(@RequestBody RtuDetails deviceDetails) {
+    public ResponseEntity<RtuDetails> addDevice(@RequestBody RtuDetails deviceDetails) {
         final RtuDetails deviceList = detailService.saveDeviceDetails(deviceDetails);
         return ResponseEntity.ok(deviceList);
     }

@@ -4,7 +4,9 @@ import com.ems.sow.model.User;
 
 public interface UserService {
 
-    User findByPasscode(String passcode);
-    User addUser(User user);
+//    User findByPasscode(String passcode);
 
+    User register(User user);
+
+    User findByEmailAndPassword(String email, String password);
 }

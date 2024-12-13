@@ -28,4 +28,6 @@ public interface DeviceDetailService {
 
     List<RtuDetails> findSerialNumbersByCustomerId(String customerId);
 
+    List<RtuDetails> findByCustomerIdAndSerialNumber(String customerId, String SerialNumber);
+
 }

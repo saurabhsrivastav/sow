@@ -1,9 +1,6 @@
 package com.ems.sow.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,11 +17,12 @@ public class User {
     @Id
     @Column(name = "userId" , nullable = false, length=40)
     private String userId;
-    @Column(name = "email", unique = true, nullable = false,  length = 100,  columnDefinition = "varchar(100)")
-    private String email;
-    @Column(name = "passcode",  nullable = false, length = 20, columnDefinition = "varchar(20)")
-    private String passcode;
     @Column(name = "name", nullable = false, length = 100, columnDefinition = "varchar(100)")
     private String name;
-
+    @Column(name = "email", unique = true, nullable = false,  length = 255,  columnDefinition = "varchar(255)")
+    private String email;
+    @Column(name = "password", unique = true, nullable = false,  length = 50,  columnDefinition = "varchar(50)")
+    private String password;
+    @Column(name = "role", nullable = false, length = 100, columnDefinition = "varchar(100)")
+    private String role;
 }

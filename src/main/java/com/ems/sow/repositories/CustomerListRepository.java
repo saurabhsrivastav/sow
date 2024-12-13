@@ -44,6 +44,8 @@ public interface CustomerListRepository extends JpaRepository<CustomerList, Stri
                     "    cd.address, \n" +
                     "    cd.contact_person, \n" +
                     "    cd.sub_start_date, \n" +
+                    "    cd.site_capping, \n" +
+                    "    cd.device_capping, \n" +
                     "    cd.sub_end_date\n" +
                     "ORDER BY \n" +
                     "    cd.customer_name ASC", nativeQuery = true)

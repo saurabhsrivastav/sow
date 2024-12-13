@@ -15,15 +15,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        final User response = userService.addUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @GetMapping("/{email}/{password}")
+    private ResponseEntity<User> getUserDetail(@PathVariable String email, @PathVariable String password){
+        final User user = userService.findByEmailAndPassword(email, password);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/{passcode}")
-    private ResponseEntity<User> getUserDetail(@PathVariable String passcode){
-        final User response = userService.findByPasscode(passcode);
-        return ResponseEntity.ok(response);
+    @PostMapping("/register-user")
+    private ResponseEntity<User> registerUser(@RequestBody User user){
+        final User response = userService.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
