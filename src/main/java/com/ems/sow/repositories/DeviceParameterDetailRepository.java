@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface DeviceParameterDetailRepository extends JpaRepository<StreamData, String> {
 
-    List<StreamData> findByOsdAndMdbid(String serialNumber, String deviceModbus);
-
     @Query(
             value = "SELECT " +
                     "    sd.obj_id, " +
@@ -39,11 +37,10 @@ public interface DeviceParameterDetailRepository extends JpaRepository<StreamDat
                     "    sd.event_timestamp DESC",
             nativeQuery = true
     )
-    List<StreamDataProjection> findByOsdValue(@Param("osd") String osd, @Param("mdbid") String mdbid
-
-
+    List<StreamDataProjection> findByOsdValue(
+            @Param("osd") String osd,
+            @Param("mdbid") String mdbid
     );
-
 }
 
 

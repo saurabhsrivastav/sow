@@ -23,15 +23,6 @@ public class DeviceParameterDetailServiceImplementation implements DeviceParamet
     @Autowired
     private ObjectMapper objectMapper; // Provided by Spring Boot by default
 
-    /**
-     * @param id
-     * @param deviceModbus
-     * @return
-     */
-    @Override
-    public List<StreamData> getDeviceParameterDetails(String id, String deviceModbus) {
-        return List.of();
-    }
 
     @Override
     public List<Map> getJsonDataAsMap(String serialNumber, String deviceModbus) throws JsonProcessingException {
@@ -45,51 +36,5 @@ public class DeviceParameterDetailServiceImplementation implements DeviceParamet
                 .toList();
     }
 
+}
 
-
-//    @Override
-//    public List<StreamDataProjection> getJsonDataAsMap(String serialNumber, String deviceModbus) throws JsonProcessingException {
-//        List<StreamDataProjection> jsonDataList = deviceParameterDetailRepository.findByOsdValue(serialNumber, deviceModbus);
-//
-//        if (!jsonDataList.isEmpty()) {
-//            StreamDataProjection streamData = jsonDataList.get(0); // Get the first record
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            return objectMapper.convertValue(streamData, Map.class);
-//        } else {
-//            return null; // Or throw an exception
-//        }
-//    }
-
-
-
-
-//   @Override
-//   public List<Map> getJsonDataAsMap(String osd, String mdbid, Pageable pageable) throws JsonProcessingException {
-//       Page<StreamDataProjection> jsonDataList = deviceParameterDetailRepository.findByOsdValueWithPagination(serialNumber, deviceModbus, pageable);
-
-//        List<StreamDataProjection> content = jsonDataList.getContent();
-//        if (!content.isEmpty()) {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            return content.stream()
-//                    .map(streamData -> objectMapper.convertValue(streamData, Map.class))
-//                    .toList();
-//        } else {
-//            return null;
-//        }
-        // Fetch paginated data
-//        Page<StreamDataProjection> jsonDataPage = deviceParameterDetailRepository.findByOsdValueWithPagination(serialNumber, deviceModbus, pageable);
-//
-//        List<StreamDataProjection> content = jsonDataPage.getContent();
-//
-//        // Convert content to a list of maps
-//        List<Map<String, Object>> convertedContent = jsonDataPage.getContent().stream()
-//                .map(streamData -> {
-//                    ObjectMapper objectMapper = new ObjectMapper();
-//                    return objectMapper.convertValue(streamData, Map.class);
-//                })
-//                .toList();
-//
-//        // Return as a Page<Map<String, Object>> while preserving pagination metadata
-//        return new PageImpl<>(convertedContent, pageable, jsonDataPage.getTotalElements());
-    }
-//}
