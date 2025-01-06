@@ -4,6 +4,7 @@ import com.ems.sow.exceptions.ErrorResponse;
 import com.ems.sow.model.CustomerList;
 import com.ems.sow.projection.ICustomerListProj;
 import com.ems.sow.services.CustomerListService;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -28,49 +27,32 @@ public class CustomerListController {
 
     // add new customer
     @PostMapping("/add")
-    private ResponseEntity<?> createNewCustomer (
-            @RequestParam("customerName") String customerName,
-            @RequestParam("address") String address,
-            @RequestParam("contactPerson") String contactPerson,
-            @RequestParam("subStartDate") String subStartDate,
-            @RequestParam("subEndDate") String subEndDate,
-            @RequestParam("deviceCapping") String deviceCapping,
-            @RequestParam("siteCapping") String siteCapping,
-            @RequestParam("applicationId") String applicationId,
+    private ResponseEntity<?> createNewCustomer (@RequestParam("customerName") String customerName,
+            @RequestParam("address") String address, @RequestParam("contactPerson") String contactPerson,
+            @RequestParam("subStartDate") String subStartDate, @RequestParam("subEndDate") String subEndDate,
+            @RequestParam("deviceCapping") String deviceCapping, @RequestParam("siteCapping") String siteCapping,
+            @RequestParam("applicationId") String applicationId, @RequestParam("userName") String userName,
             @RequestPart("image") MultipartFile file) throws IOException {
 
-        log.info("Inside createNewCustomer");
-
-        CustomerList customerList = CustomerList.builder()
-                .customerName(customerName)
-                .address(address)
-                .contactPerson(contactPerson)
-                .subStartDate(subStartDate)
-                .subEndDate(subEndDate)
-                .deviceCapping(deviceCapping)
-                .siteCapping(siteCapping)
-                .applicationId(applicationId)
-                .image(file.getBytes())
-                .build();
+        log.info("controller is in create new customer()");
+        CustomerList customerList = CustomerList.builder().customerName(customerName).address(address)
+                .contactPerson(contactPerson).subStartDate(subStartDate).subEndDate(subEndDate).deviceCapping(deviceCapping)
+                .siteCapping(siteCapping).applicationId(applicationId).userName(userName).image(file.getBytes()).build();
         try {
             log.info("calling create customer service : ");
             CustomerList list = customerListService.createCustomer(customerList);
             list.setImage(null);
-            log.info("Response from create customer: " + list);
+            log.info("Response from create customer: {}", list);
             return ResponseEntity.status(HttpStatus.OK).body(list);
         } catch (Exception e) {
             log.error("Exception occurred: ", e);
-            ErrorResponse errorResponse = new ErrorResponse(
-                    "Failed to create new customer",
-                    e.getMessage(),  // or a more generic message to avoid exposing internal details
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorResponse);
+            ErrorResponse errorResponse = new ErrorResponse("Failed to create new customer",
+                    e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
-    // get All Customers
+    // get all customers
     @GetMapping("/all")
     private ResponseEntity<List<ICustomerListProj>> getAllCustomer() {
         log.info("Calling getAllCustomer () : ");
@@ -78,12 +60,21 @@ public class CustomerListController {
         return ResponseEntity.ok().body(customers);
     }
 
-    // get customer detail with device and site by customer id
+    // get customers detail by application id
     @GetMapping("/{id}")
     private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String id) {
-        log.info("Calling getCustomerByApplicationId() : ");
+        log.info("Calling getCustomer by applicationId() : ");
         List<ICustomerListProj> customers = customerListService.getCustomerByApplicationId(id);
         log.info("Response from get customer by id: {}", customers);
+        return ResponseEntity.ok().body(customers);
+    }
+
+    // get customers detail by user name
+    @GetMapping("/getuser/{userName}")
+    private @NotNull ResponseEntity<List<CustomerList>> getCustomerByUserName(@PathVariable String userName) {
+        log.info("calling get customer by userName:");
+        List<CustomerList> customers = customerListService.getCustomerByUserName(userName);
+        log.info("response from get customer by userName: {}", customers);
         return ResponseEntity.ok().body(customers);
     }
 
@@ -96,7 +87,7 @@ public class CustomerListController {
         return ResponseEntity.ok(deviceAndSite).getBody();
     }
 
-    // update
+    // update customer details
     @PutMapping (value = "/update-customer")
     private ResponseEntity<CustomerList> updateCustomerDetails(@RequestBody CustomerList customerList) {
         try {
@@ -108,7 +99,7 @@ public class CustomerListController {
         }
     }
 
-    // delete
+    // delete customer
     @DeleteMapping ("/{id}")
     private ResponseEntity<CustomerList> deleteCustomer(@PathVariable String id) {
         try {
@@ -118,5 +109,4 @@ public class CustomerListController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }

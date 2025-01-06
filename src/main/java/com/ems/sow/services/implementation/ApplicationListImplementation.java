@@ -45,6 +45,11 @@ public class ApplicationListImplementation implements ApplicationListService {
         logger.info("entered in updateStatus ()");
         return repository.save(list);
     }
+
+    @Override
+    public List<ApplicationList> getApplicationByUserName(String userName) {
+        return repository.findByUserName(userName);
+    }
 }
 
 

@@ -27,11 +27,12 @@ public class CustomerList {
     @Column
     @Lob
     private byte[] image;
+
     @Column (nullable = false, length=4)
     private String deviceCapping;
     @Column (nullable = false, length=4)
     private String siteCapping;
+
     private String applicationId;
-
-
+    private String userName;
 }

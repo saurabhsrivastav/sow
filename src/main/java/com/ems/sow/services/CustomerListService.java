@@ -18,4 +18,6 @@ public interface CustomerListService {
     void deleteCustomer(String id);
 
     List<ICustomerListProj> getCustomerByApplicationId(String id);
+
+    List<CustomerList> getCustomerByUserName(String userName);
 }

@@ -30,4 +30,6 @@ public interface ApplicationListRepository extends JpaRepository<ApplicationList
             "    al.status \n" +
             "Order by al.application_name", nativeQuery = true)
     List<IApplicationListProj> getActiveCustomer();
+
+    List<ApplicationList> findByUserName(String userName);
 }

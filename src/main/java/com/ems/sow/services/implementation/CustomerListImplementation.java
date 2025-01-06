@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Customer List Implementation
- */
 
 @Service
 public class CustomerListImplementation implements CustomerListService {
@@ -31,10 +28,6 @@ public class CustomerListImplementation implements CustomerListService {
         return customerListRepository.findAllCustomer();
     }
 
-    /**
-     * @param id
-     * @return
-     */
     @Override
     public List<CustomerList> loadCustomerImage(String id) {
         return customerListRepository.findByCustomerId(id);
@@ -47,7 +40,6 @@ public class CustomerListImplementation implements CustomerListService {
         customerList.setCustomerId(list);
         return customerListRepository.save(customerList);
     }
-
 
     @Override
     public CustomerList updateCustomer(CustomerList customerList) {
@@ -66,4 +58,8 @@ public class CustomerListImplementation implements CustomerListService {
         return customerListRepository.findByAppId(id);
     }
 
+    @Override
+    public List<CustomerList> getCustomerByUserName(String username) {
+        return customerListRepository.findByUserName(username);
+    }
 }

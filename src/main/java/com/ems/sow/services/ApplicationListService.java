@@ -15,4 +15,6 @@ public interface ApplicationListService {
     List<IApplicationListProj> getActiveCustomer();
 
     ApplicationList updateStatus(ApplicationList list);
+
+    List<ApplicationList> getApplicationByUserName(String userName);
 }

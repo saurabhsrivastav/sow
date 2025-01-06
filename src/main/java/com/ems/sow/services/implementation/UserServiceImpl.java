@@ -14,11 +14,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-//    @Override
-//    public User findByPasscode(String passcode) {
-//        return repository.findByPasscode(passcode);
-//    }
-
     @Override
     public User register(User user) {
         String userId = UUID.randomUUID().toString();

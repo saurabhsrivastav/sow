@@ -35,12 +35,20 @@ public interface DeviceParameterDetailRepository extends JpaRepository<StreamDat
                     "    sd.obj_id, sd.osd, sd.event_timestamp, sd.mdbid " +
                     "ORDER BY " +
                     "    sd.event_timestamp DESC",
+            countQuery = "SELECT COUNT(*) FROM stream_data sd " +
+                    "JOIN install_device_parameters idp " +
+                    "ON sd.tele_data->>idp.parameter_code IS NOT NULL " +
+                    "AND sd.osd = idp.serial_number " +
+                    "AND sd.mdbid = idp.device_modbus " +
+                    "WHERE sd.osd = :osd AND sd.mdbid = :mdbid",
             nativeQuery = true
     )
-    List<StreamDataProjection> findByOsdValue(
+    Page<StreamDataProjection> findByOsdValue(
             @Param("osd") String osd,
-            @Param("mdbid") String mdbid
+            @Param("mdbid") String mdbid,
+            Pageable pageable
     );
+
 }
 
 

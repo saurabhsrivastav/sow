@@ -19,6 +19,7 @@ public class ApplicationList {
     private String description;
     @Column (nullable = false, length=5)
     private Boolean status;
+    private String userName;
 
     @PrePersist
     public void prePersist() {

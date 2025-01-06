@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/application-list")
 public class ApplicationListController {
 
-    Logger logger = LoggerFactory.getLogger(ApplicationListController.class);
+    private final Logger logger = LoggerFactory.getLogger(ApplicationListController.class);
 
     @Autowired
     private ApplicationListService applicationListService;
@@ -36,8 +36,16 @@ public class ApplicationListController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/{userName}")
+    private ResponseEntity<List<?>> getApplicationDetailByUser( @PathVariable String userName) {
+        logger.info("Request to get application details with Userwise");
+        final List<ApplicationList> list = applicationListService.getApplicationByUserName(userName);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+
+    }
+
     @GetMapping
-    private ResponseEntity<List<?>> getApplicationDetailWithActiveCustomerCount() {
+    private ResponseEntity<List<?>> getApplicationDetailWithActiveCustomerCount( ) {
         logger.info("Request to get application details with active customer count");
         List<IApplicationListProj> activeCustomerCount = applicationListService.getActiveCustomer();
         if (activeCustomerCount.isEmpty()) {

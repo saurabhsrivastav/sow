@@ -1,37 +1,46 @@
 #server:
 #  port: 5000
-#
-#spring:
-#  jpa:
-#    database: POSTGRESQL
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#    properties:
-#      hibernate:
-#      dialect: org.hibernate.dialect.PostgreSQLDialect
-#
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://database-1.cbo04qee6u5f.ap-south-1.rds.amazonaws.com:5432/testdb
-#    username: postgres
-#    password: 8kMKanLX9dEDQVOKwmp6
-#    hikari:
-#      auto-commit: false
-#    driverClassName: org.postgresql.Driver
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.cbo04qee6u5f.ap-south-1.rds.amazonaws.com:5432/testdb
+    username: postgres
+    password: 8kMKanLX9dEDQVOKwmp6
+    hikari:
+      auto-commit: false
+    driverClassName: org.postgresql.Driver
 
 server:
   port: 8080
 
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ems
-    username: postgres
-    password: root
-    hikari:
-      auto-commit: false
+#     url: jdbc:postgresql://database-1.cbo04qee6u5f.ap-south-1.rds.amazonaws.com:5432/testdb
+#    username: postgres
+#    password: 8kMKanLX9dEDQVOKwmp6
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#    url: jdbc:postgresql://43.204.140.189:5432/dbems?currentSchema=ems
+#    username: dbuser
+#    password: rtndb123!@#
+
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/ems
+#    username: postgres
+#    password: root
+#    hikari:
+#      auto-commit: false
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true

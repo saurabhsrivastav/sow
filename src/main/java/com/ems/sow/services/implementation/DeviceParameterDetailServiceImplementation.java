@@ -21,20 +21,16 @@ public class DeviceParameterDetailServiceImplementation implements DeviceParamet
     private DeviceParameterDetailRepository deviceParameterDetailRepository;
 
     @Autowired
-    private ObjectMapper objectMapper; // Provided by Spring Boot by default
+    private ObjectMapper objectMapper;
 
 
     @Override
-    public List<Map> getJsonDataAsMap(String serialNumber, String deviceModbus) throws JsonProcessingException {
-        // Fetch the data
-        List<StreamDataProjection> jsonDataList = deviceParameterDetailRepository.findByOsdValue(serialNumber, deviceModbus);
+    public Page<Map> getJsonDataAsMap(String serialNumber, String deviceModbus, Pageable pageable) {
+        // Fetch the paginated data
+        Page<StreamDataProjection> jsonDataPage = deviceParameterDetailRepository.findByOsdValue(serialNumber, deviceModbus, pageable);
 
-        // Convert each record to a map
-        ObjectMapper objectMapper = new ObjectMapper();
-        return jsonDataList.stream()
-                .map(streamData -> objectMapper.convertValue(streamData, Map.class))
-                .toList();
+        // Convert each record to a map and return a paginated response
+        return jsonDataPage.map(streamData -> objectMapper.convertValue(streamData, Map.class));
     }
-
 }
 

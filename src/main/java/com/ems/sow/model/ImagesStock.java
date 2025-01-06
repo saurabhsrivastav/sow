@@ -28,5 +28,5 @@ public class ImagesStock {
     private String modbusId;
     @Column(name="full_image_name", nullable = false)
     private String fullImageName;
-
+    private String fileUrl;
 }
