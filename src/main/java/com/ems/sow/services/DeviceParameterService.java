@@ -9,4 +9,6 @@ public interface DeviceParameterService {
     InstallDevice saveParameters(InstallDevice device);
 
     List<InstallDevice> getDeviceDetails(String deviceId);
+
+    List<InstallDevice> getDeviceDetailsbyCustID(String customerId);
 }

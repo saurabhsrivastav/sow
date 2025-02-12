@@ -9,4 +9,6 @@ import java.util.List;
 public interface DeviceParameterInfoRepository extends JpaRepository<InstallDeviceParameters, String> {
 
     List<InstallDeviceParameters> findBySerialNumberAndDeviceModbus(String serialNumber, String deviceModbus, Sort sort);
+
+    List<InstallDeviceParameters> findByDeviceId(String deviceId);
 }

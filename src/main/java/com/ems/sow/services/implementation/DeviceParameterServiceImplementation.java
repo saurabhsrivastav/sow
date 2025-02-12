@@ -16,13 +16,21 @@ public class DeviceParameterServiceImplementation implements DeviceParameterServ
     private DeviceParameterRepository repository;
 
     public InstallDevice saveParameters(InstallDevice devices) {
-        String id = UUID.randomUUID().toString();
-        devices.setDeviceId(id);
+
+        if (repository.existsBySerialNumberAndDeviceModbus(devices.getSerialNumber(), devices.getDeviceModbus())) {
+            return null;
+        }
+        devices.setDeviceId(UUID.randomUUID().toString());
         return repository.save(devices);
     }
 
     @Override
     public List<InstallDevice> getDeviceDetails(String rtuId) {
         return repository.findBySerialNumber(rtuId);
+    }
+
+    @Override
+    public List<InstallDevice> getDeviceDetailsbyCustID(String customerId) {
+        return repository.findByCustomerId(customerId);
     }
 }

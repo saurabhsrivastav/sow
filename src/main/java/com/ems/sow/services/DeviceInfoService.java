@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DeviceInfoService {
 
-    List<DeviceDetailList> getDeviceDetail(String id);
+    List<DeviceDetailList> getAllDeviceDetails(String id);
 
     DeviceDetailList saveDeviceDetail(DeviceDetailList deviceDetailList);
 

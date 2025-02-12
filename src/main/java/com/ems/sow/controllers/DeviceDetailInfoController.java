@@ -18,7 +18,7 @@ public class DeviceDetailInfoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<DeviceDetailList>> getDeviceDetails(@PathVariable String id) {
-        final List<DeviceDetailList> deviceDetail = deviceInfoService.getDeviceDetail(id);
+        final List<DeviceDetailList> deviceDetail = deviceInfoService.getAllDeviceDetails(id);
         return ResponseEntity.ok(deviceDetail);
     }
 

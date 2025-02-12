@@ -1,12 +1,12 @@
 package com.ems.sow.services;
 
-import com.ems.sow.model.AlertList;
+import com.ems.sow.model.AlertsData;
 
 import java.util.List;
 
 public interface AlertListService {
 
-    List<AlertList> getAlertByCustomerId(String id);
+       List<AlertsData> getAlertBySerialNumberAndOSD(String serialNumber, String deviceModbus);
 
-    List<AlertList> getAlertByDeviceId(String id);
+       List<AlertsData> getAlertsByOsdAndMdbid(String osd, String mdbid);
 }

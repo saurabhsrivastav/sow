@@ -55,7 +55,7 @@ public class DeviceDetailImplementation implements DeviceDetailService {
         final boolean status = deviceDetails.isStatus();
         final List<RtuDetails> responseByDeviceName = repository.findBySerialNumber(serialNumber);
         for (RtuDetails list : responseByDeviceName) {
-            list.setStatus(status);
+            list.setStatus(true);
             list.setSiteId(siteId);
             repository.save(list);
         }
@@ -64,7 +64,7 @@ public class DeviceDetailImplementation implements DeviceDetailService {
 
     @Override
     public List<RtuDetails> getDeviceByCustomerId(String id) {
-            return repository.findAllByCustomerIdAndStatus(id, false);
+        return repository.findAllByCustomerIdAndStatus(id, false);
     }
 
     @Override
@@ -84,10 +84,6 @@ public class DeviceDetailImplementation implements DeviceDetailService {
         return repository.findByRtuId(rtuId);
     }
 
-    /**
-     * @param customerId
-     * @return
-     */
     @Override
     public List<RtuDetails> findSerialNumbersByCustomerId(String customerId) {
         return repository.findByCustomerId(customerId);

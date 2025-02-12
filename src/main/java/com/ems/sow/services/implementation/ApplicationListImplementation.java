@@ -47,7 +47,7 @@ public class ApplicationListImplementation implements ApplicationListService {
     }
 
     @Override
-    public List<ApplicationList> getApplicationByUserName(String userName) {
+    public List<ApplicationList>  getApplicationByUserName(String userName) {
         return repository.findByUserName(userName);
     }
 }

@@ -20,10 +20,15 @@ public class DeviceParameterInfoController {
 
     @GetMapping("/{serialNumber}/{deviceModbus}")
     public ResponseEntity<List<InstallDeviceParameters>> getDeviceParameters(@PathVariable String serialNumber,
-                                                                                             @PathVariable String deviceModbus) {
+                                                                             @PathVariable String deviceModbus) {
         final List<InstallDeviceParameters> deviceDetailLists = deviceParameterInfoService.getDeviceParameters(serialNumber, deviceModbus);
-
-
         return ResponseEntity.ok(deviceDetailLists);
+    }
+
+
+    @GetMapping("/{deviceId}")
+    public ResponseEntity<List<InstallDeviceParameters>> getDeviceParametersDetailsByDeviceId(@PathVariable String deviceId) {
+        final List<InstallDeviceParameters> deviceList = deviceParameterInfoService.getDeviceParametersDetailsByDeviceId(deviceId);
+        return ResponseEntity.ok(deviceList);
     }
 }

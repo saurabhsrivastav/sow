@@ -17,7 +17,7 @@ public class DeviceInfoServiceImplementation implements DeviceInfoService {
     private DeviceInfoRepository deviceInfoRepository;
 
     @Override
-    public List<DeviceDetailList> getDeviceDetail(String id) {
+    public List<DeviceDetailList> getAllDeviceDetails(String id) {
         return deviceInfoRepository.findDistinctByDeviceId(id);
     }
 

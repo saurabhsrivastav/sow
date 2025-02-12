@@ -1,32 +1,49 @@
-                                     package com.ems.sow.controllers;
+package com.ems.sow.controllers;
 
-import com.ems.sow.model.AlertList;
+import com.ems.sow.model.AlertsData;
 import com.ems.sow.services.AlertListService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @RestController
 @RequestMapping("/api/v1/alerts")
 public class AlertListController {
 
-    Logger logger = Logger.getLogger(AlertListController.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(AlertListController.class);
+
 
     @Autowired
     private AlertListService alertListService;
 
-    @GetMapping(value = "/{id}")
-    private ResponseEntity<List<AlertList>> getAlertDetailsByCustomerId(@PathVariable String id) {
-        logger.info("entered in getAlertByCustomerId <" + id + "> customer id");
-        return ResponseEntity.ok(alertListService.getAlertByCustomerId(id));
+    @GetMapping("/{serialNumber}/{deviceModbus}")
+    public ResponseEntity<List<AlertsData>> getAlertBySerialNumberAndOSD(@PathVariable String serialNumber,
+                                                                        @PathVariable String deviceModbus) {
+        logger.info("Fetching alerts for serialNumber={} and deviceModbus={}", serialNumber, deviceModbus);
+        try {
+            List<AlertsData> alerts = alertListService.getAlertBySerialNumberAndOSD(serialNumber, deviceModbus);
+            if (alerts.isEmpty()) {
+                logger.info("No alerts found for serialNumber={} and deviceModbus={}", serialNumber, deviceModbus);
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(alerts);
+        } catch (Exception ex) {
+            logger.error("Error fetching alerts for serialNumber={} and deviceModbus={}: {}", serialNumber, deviceModbus, ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @GetMapping(value = "/device/{id}")
-    private ResponseEntity<List<AlertList>> getAlertByDeviceId(@PathVariable String id) {
-        logger.info("entered in getAlertByDeviceId <" + id + "> Device Id");
-        return ResponseEntity.ok(alertListService.getAlertByDeviceId(id));
+    @GetMapping
+    public List<AlertsData> getAlerts(
+            @RequestParam String osd,
+            @RequestParam String mdbid) {
+        return alertListService.getAlertsByOsdAndMdbid(osd, mdbid);
     }
+
 }

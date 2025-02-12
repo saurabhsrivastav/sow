@@ -36,8 +36,7 @@ public class CustomerListImplementation implements CustomerListService {
     @Override
     public CustomerList createCustomer(CustomerList customerList) throws IOException {
         logger.info("creating new customer ");
-        String list = UUID.randomUUID().toString();
-        customerList.setCustomerId(list);
+        customerList.setCustomerId(UUID.randomUUID().toString());
         return customerListRepository.save(customerList);
     }
 

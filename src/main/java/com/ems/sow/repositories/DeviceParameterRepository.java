@@ -8,4 +8,8 @@ import java.util.List;
 public interface DeviceParameterRepository extends JpaRepository<InstallDevice, Long> {
 
     List<InstallDevice> findBySerialNumber(String rtuId);
+
+    List<InstallDevice> findByCustomerId(String customerId);
+
+    boolean existsBySerialNumberAndDeviceModbus(String serialNumber, String deviceModbus);
 }

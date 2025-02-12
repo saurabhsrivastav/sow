@@ -8,4 +8,5 @@ public interface DeviceParameterInfoService {
 
     List<InstallDeviceParameters> getDeviceParameters(String serialNumber, String deviceModbus);
 
+    List<InstallDeviceParameters> getDeviceParametersDetailsByDeviceId(String deviceId);
 }

@@ -61,10 +61,10 @@ public class CustomerListController {
     }
 
     // get customers detail by application id
-    @GetMapping("/{id}")
-    private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String id) {
+    @GetMapping("/{applicationId}")
+    private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String applicationId) {
         log.info("Calling getCustomer by applicationId() : ");
-        List<ICustomerListProj> customers = customerListService.getCustomerByApplicationId(id);
+        List<ICustomerListProj> customers = customerListService.getCustomerByApplicationId(applicationId);
         log.info("Response from get customer by id: {}", customers);
         return ResponseEntity.ok().body(customers);
     }
