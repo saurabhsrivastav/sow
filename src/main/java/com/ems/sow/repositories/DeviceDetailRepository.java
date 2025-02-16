@@ -14,28 +14,17 @@ import java.util.Optional;
 public interface DeviceDetailRepository extends JpaRepository<RtuDetails, String> {
 
 
-    @Query (value = "SELECT DISTINCT \n" +
-            "    de.rtu_id AS rtuId, \n" +
-            "    de.rtu_name AS rtuName, \n" +
-            "    de.model_number AS modelNumber, \n" +
-            "    de.serial_number AS serialNumber, \n" +
-            "    de.rtu_category AS rtuCategory, \n" +
-            "    de.customer_id AS customerId, \n" +
-            "    de.status AS status, \n" +
-            "    de.device_status AS deviceStatus, \n" +
-            "    STRING_AGG(DISTINCT al.alert_name, ', ') AS alert, \n" +
-            "    (SELECT se.site_name \n" +
-            "     FROM site_details se \n" +
-            "     WHERE se.site_id = de.site_id) AS siteName\n" +
-            "FROM \n" +
-            "    rtu_details de\n" +
-            "LEFT JOIN \n" +
-            "    alert_lists al ON al.customer_id = de.customer_id\n" +
-            "WHERE \n" +
-            "    de.customer_id = ?1\n" +
-            "GROUP BY \n" +
-            "    de.rtu_id, de.rtu_name, de.model_number, de.serial_number, \n" +
-            "    de.rtu_category, de.customer_id, de.device_status", nativeQuery = true)
+    @Query (value = "SELECT DISTINCT de.rtu_id AS rtuId, de.rtu_name AS rtuName, de.model_number AS modelNumber, de.serial_number AS serialNumber, de.rtu_category AS rtuCategory, \n" +
+            "de.customer_id AS customerId, de.status AS status, de.device_status AS deviceStatus, \n" +
+            "(SELECT se.site_name \n" +
+            " FROM site_details se \n" +
+            " WHERE se.site_id = de.site_id) AS siteName\n" +
+            " FROM rtu_details de \n" +
+            " WHERE \n" +
+            " de.customer_id = ?1\n" +
+            " GROUP BY \n" +
+            " de.rtu_id, de.rtu_name, de.model_number, de.serial_number, \n" +
+            " de.rtu_category, de.customer_id, de.device_status", nativeQuery = true)
     Optional<List<IDeviceDetailList>> findDeviceDetailsByCustomerId(String id);
 
     @Query(value = "SELECT \n" +
