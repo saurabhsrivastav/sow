@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SowApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(SowApplication.class, args);
     }
 

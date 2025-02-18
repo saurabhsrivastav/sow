@@ -11,4 +11,6 @@ public interface DeviceParameterService {
     List<InstallDevice> getDeviceDetails(String deviceId);
 
     List<InstallDevice> getDeviceDetailsbyCustID(String customerId);
+
+    boolean findBySerialNumberAndDeviceModbus(String serialNumber, String deviceModbus);
 }

@@ -34,4 +34,11 @@ public class DeviceParameterServiceImplementation implements DeviceParameterServ
     public List<InstallDevice> getDeviceDetailsbyCustID(String customerId) {
         return repository.findByCustomerId(customerId);
     }
+
+    @Override
+    public boolean findBySerialNumberAndDeviceModbus(String serialNumber, String deviceModbus) {
+        return repository.existsBySerialNumberAndDeviceModbus(serialNumber, deviceModbus);
+    }
+
+
 }

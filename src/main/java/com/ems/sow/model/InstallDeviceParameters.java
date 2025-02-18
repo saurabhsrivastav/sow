@@ -48,8 +48,8 @@ public class InstallDeviceParameters {
     @Column(name = "device_id")
     private String deviceId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "devices_id")
-    private InstallDevice installDevices;
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "devices_id")
+//    private InstallDevice installDevices;
 }
 

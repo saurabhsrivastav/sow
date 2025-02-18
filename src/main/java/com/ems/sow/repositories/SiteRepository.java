@@ -24,4 +24,6 @@ public interface SiteRepository extends JpaRepository<SiteDetails, String> {
             "       WHERE si.site_id = ?1\n" +
             "       ORDER BY rtuName ASC", nativeQuery = true)
     List<ISiteDetailsProj> findBySiteIdDetails(String id);
+
+    boolean existsBySiteName(String siteName);
 }

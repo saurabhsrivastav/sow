@@ -12,4 +12,5 @@ public interface DeviceParameterRepository extends JpaRepository<InstallDevice, 
     List<InstallDevice> findByCustomerId(String customerId);
 
     boolean existsBySerialNumberAndDeviceModbus(String serialNumber, String deviceModbus);
+
 }

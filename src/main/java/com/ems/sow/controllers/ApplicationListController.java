@@ -38,7 +38,7 @@ public class ApplicationListController {
 
     @GetMapping("/{userName}")
     private ResponseEntity<List<?>> getApplicationDetailByUser( @PathVariable String userName) {
-        logger.info("Request to get application details with Userwise");
+        logger.info("Request to get application details with User");
         final List<ApplicationList> list = applicationListService.getApplicationByUserName(userName);
         return new ResponseEntity<>(list, HttpStatus.OK);
 
