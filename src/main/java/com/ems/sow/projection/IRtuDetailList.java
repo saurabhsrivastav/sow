@@ -1,6 +1,6 @@
 package com.ems.sow.projection;
 
-public interface IDeviceDetailList {
+public interface IRtuDetailList {
     String getSiteName();
     String getRtuId();
     String getRtuName();

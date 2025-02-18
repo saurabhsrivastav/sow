@@ -1,6 +1,6 @@
 package com.ems.sow.projection;
 
-public interface IDeviceListProj {
+public interface IRtuListProj {
    String getAllDevices();
    String getOnline();
    String getOffline();

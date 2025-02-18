@@ -1,6 +1,8 @@
 package com.ems.sow.controllers;
 
 import com.ems.sow.model.InstallDevice;
+import com.ems.sow.model.RtuDetails;
+import com.ems.sow.repositories.RtuDetailRepository;
 import com.ems.sow.services.DeviceParameterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +19,26 @@ public class DeviceParameterController {
     Logger logger = LoggerFactory.getLogger(DeviceParameterController.class);
 
     @Autowired
-    DeviceParameterService deviceParameterService;
+    private DeviceParameterService deviceParameterService;
+
+    @Autowired
+    RtuDetailRepository rtuDetailRepository;
 
     @PostMapping (value="/add")
     public ResponseEntity<InstallDevice> saveDeviceDetails(@RequestBody InstallDevice device) {
         logger.info("Request to save device parameters {}", device);
-        final InstallDevice deviceDetailLists = deviceParameterService.saveParameters(device);
-        return ResponseEntity.ok(deviceDetailLists);
+        final InstallDevice installDevice = deviceParameterService.saveParameters(device);
+        persistInRTUDetails(installDevice.getDeviceId(), installDevice.getSerialNumber());
+        return ResponseEntity.ok(installDevice);
+    }
+
+
+    void persistInRTUDetails(String deviceId, String serialNumber) {
+        List<RtuDetails> bySerialNumber = rtuDetailRepository.findBySerialNumber(serialNumber);
+        for (RtuDetails list : bySerialNumber) {
+            list.setDevice(deviceId);
+            rtuDetailRepository.save(list);
+        }
     }
 
     @GetMapping("/{serialNumber}")

@@ -17,7 +17,8 @@ public class DeviceParameterServiceImplementation implements DeviceParameterServ
 
     public InstallDevice saveParameters(InstallDevice devices) {
 
-        if (repository.existsBySerialNumberAndDeviceModbus(devices.getSerialNumber(), devices.getDeviceModbus())) {
+        if (repository.
+                existsBySerialNumberAndDeviceModbus(devices.getSerialNumber(), devices.getDeviceModbus())) {
             return null;
         }
         devices.setDeviceId(UUID.randomUUID().toString());

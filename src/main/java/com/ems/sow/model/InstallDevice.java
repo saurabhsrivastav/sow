@@ -54,10 +54,6 @@ public class InstallDevice {
     @JoinColumn(name = "device_id")
     private List<InstallDeviceParameters> deviceParameterInfo = new ArrayList<>();
 
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id", nullable = false)
-//    private InstallDeviceParameters installDeviceParameters;
-
 
 }
 

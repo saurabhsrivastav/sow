@@ -48,8 +48,6 @@ public class InstallDeviceParameters {
     @Column(name = "device_id")
     private String deviceId;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "installDeviceParameters", orphanRemoval = true)
-//    private List<InstallDevice> installDevices = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "devices_id")
     private InstallDevice installDevices;
