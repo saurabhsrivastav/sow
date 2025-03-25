@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 public class DeviceParameterInfoServiceImplementation implements DeviceParameterInfoService {
 
+    Logger logger = LoggerFactory.getLogger(DeviceParameterInfoServiceImplementation.class);
+
     @Autowired
     private DeviceParameterInfoRepository repository;
-
-    Logger logger = LoggerFactory.getLogger(DeviceParameterInfoServiceImplementation.class);
 
     @Override
     public List<InstallDeviceParameters> getDeviceParameters(String serialNumber, String deviceModbus) {
@@ -26,6 +26,7 @@ public class DeviceParameterInfoServiceImplementation implements DeviceParameter
 
     @Override
     public List<InstallDeviceParameters> getDeviceParametersDetailsByDeviceId(String deviceId) {
-        return repository.findByDeviceId(deviceId);
+        logger.info("Fetching device parameters for device ID: {}", deviceId);
+        return repository.findByDevice_DeviceId(deviceId);
     }
 }

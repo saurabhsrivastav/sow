@@ -15,10 +15,13 @@ import java.util.UUID;
 @Service
 public class SiteDetailImplementation implements SiteService {
 
-    Logger logger = LoggerFactory.getLogger(SiteDetailImplementation.class);
+    private final Logger logger = LoggerFactory.getLogger(SiteDetailImplementation.class);
+    private final SiteRepository siteRepository;
 
     @Autowired
-    private SiteRepository siteRepository;
+    public SiteDetailImplementation(SiteRepository siteRepository) {
+        this.siteRepository = siteRepository;
+    }
 
     public List<SiteDetails> getAllSitesList() {
         logger.info("All Site Details List");
@@ -34,17 +37,19 @@ public class SiteDetailImplementation implements SiteService {
 
     @Override
     public SiteDetails createSite(SiteDetails siteDetails) {
+        logger.info("Creating new site with name: {}", siteDetails.getSiteName());
+
         if (siteRepository.existsBySiteName(siteDetails.getSiteName())) {
-            return null;
+            logger.warn("Site with name '{}' already exists", siteDetails.getSiteName());
+            throw new IllegalArgumentException("Site with name '" + siteDetails.getSiteName() + "' already exists");
         }
         siteDetails.setSiteId(UUID.randomUUID().toString());
         return siteRepository.save(siteDetails);
     }
 
     @Override
-    public List<ISiteDetailsProj> getSiteById(String id) {
-        logger.info("Site Details List by Site Id");
-        return siteRepository.findBySiteIdDetails(id);
+    public List<ISiteDetailsProj> getSiteById(String siteId) {
+        logger.info("Fetching site details for siteId: {}", siteId);
+        return siteRepository.findBySiteId(siteId);
     }
-
 }

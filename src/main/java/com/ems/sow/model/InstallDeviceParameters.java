@@ -1,55 +1,32 @@
 package com.ems.sow.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "install_device_parameters")
 @Entity
+@Table(name = "install_device_parameters")
 public class InstallDeviceParameters {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 50)
+    private int delay;
+    private String deviceModbus;
     private String parameterCode;
-
-    @Column(nullable = false, length = 50)
     private String parameterName;
-
-    @Column(nullable = false, length = 10)
+    @Column(name = "serial_number")
+    private String serialNumber;
+    private int thresholdMax;
+    private int thresholdMin;
     private String unit;
 
-    @Column(nullable = false)
-    private Integer thresholdMin;
+    @ManyToOne
+    @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false)
+    @JsonBackReference
+    private InstallDevice device;
 
-    @Column(nullable = false)
-    private Integer thresholdMax;
-
-    @Column(nullable = false)
-    private Integer delay;
-
-    @Column(nullable = false, length = 50)
-    private String serialNumber;
-
-    @Column(nullable = false, length = 50)
-    private String deviceModbus;
-
-    @Column(name = "device_id")
-    private String deviceId;
-
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "devices_id")
-//    private InstallDevice installDevices;
 }
-

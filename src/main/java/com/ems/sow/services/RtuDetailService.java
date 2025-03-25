@@ -22,7 +22,7 @@ public interface RtuDetailService {
 
     List<RtuDetails> getRtuByCustomerId(String id);
 
-    RtuDetails uninstallRtu(RtuDetails rtuDetails);
+    List<RtuDetails> uninstallRtu(RtuDetails rtuDetails);
 
     List<RtuDetails> findRtuByRtuId(String rtuId);
 

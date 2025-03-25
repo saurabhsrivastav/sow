@@ -17,10 +17,14 @@ import java.util.List;
 @RequestMapping("/api/v1/application-list")
 public class ApplicationListController {
 
-    private final Logger logger = LoggerFactory.getLogger(ApplicationListController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationListController.class);
+
+    private final ApplicationListService applicationListService;
 
     @Autowired
-    private ApplicationListService applicationListService;
+    public ApplicationListController(ApplicationListService applicationListService) {
+        this.applicationListService = applicationListService;
+    }
 
     @PostMapping
     private ResponseEntity<ApplicationList> createApplication(@RequestBody ApplicationList list) {
@@ -37,12 +41,13 @@ public class ApplicationListController {
     }
 
     @GetMapping("/{userName}")
+//    @PreAuthorize("hasRole('ADMIN')")
     private ResponseEntity<List<?>> getApplicationDetailByUser( @PathVariable String userName) {
         logger.info("Request to get application details with User");
         final List<ApplicationList> list = applicationListService.getApplicationByUserName(userName);
         return new ResponseEntity<>(list, HttpStatus.OK);
-
     }
+
 
     @GetMapping
     private ResponseEntity<List<?>> getApplicationDetailWithActiveCustomerCount( ) {

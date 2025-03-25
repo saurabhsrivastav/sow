@@ -1,59 +1,39 @@
 package com.ems.sow.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+//@Table(name = "install_devices", uniqueConstraints = @UniqueConstraint(columnNames = "serial_number"))
 @Table(name = "install_devices")
 public class InstallDevice {
 
     @Id
-    private String deviceId;
+    @Column(name = "device_id", nullable = false, unique = true)
+    private String deviceId;  // Ensure deviceId is the primary key
 
-    @Column (nullable = false, length=50)
-    private String serialNumber;
-
-    @Column (nullable = false, length=50)
+    private String customerId;
+    private String deviceModbus;
+    private String deviceName;
+    private String deviceStatus;
+    private String deviceType;
     private String modelNumber;
-
-    @Column(nullable = false, length=50)
+    private String rtuCategory;
+    private String rtuId;
     private String rtuName;
 
-    @Column (nullable = false, length=50)
-    private String rtuCategory;
+//    @Column(name = "serial_number", unique = true, nullable = false)
+    @Column(name = "serial_number", nullable = false)
+    private String serialNumber;
 
-    @Column (nullable = false, length=50)
-    private String deviceModbus;
-
-    @Column(nullable = false)
-    private String deviceName;
-
-    @Column(nullable = false)
-    private String deviceType;
-
-    @Column(nullable = false, length=40)
-    private String customerId;
-
-    @Column (nullable = false, length=50)
-    private String rtuId;
-
-    @Column (nullable = false, length=20)
-    private String deviceStatus;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "device_id")
-    private List<InstallDeviceParameters> deviceParameterInfo = new ArrayList<>();
-
+    @OneToMany(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<InstallDeviceParameters> installDeviceParameters = new ArrayList<>();
 
 }
-

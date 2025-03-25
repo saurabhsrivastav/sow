@@ -10,4 +10,5 @@ public interface IRtuDetailList {
     Boolean getStatus();
     String getDeviceStatus();
     String getCustomerId();
+    String getEventTimestamp();
 }

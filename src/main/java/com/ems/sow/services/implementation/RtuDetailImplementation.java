@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -77,15 +78,17 @@ public class RtuDetailImplementation implements RtuDetailService {
     }
 
     @Override
-    public RtuDetails uninstallRtu(RtuDetails rtuDetails) {
+    public List<RtuDetails> uninstallRtu(RtuDetails rtuDetails) {
         logger.info("Controller in uninstall RTU : ");
-        final List<RtuDetails> responseByDeviceName =
-                repository.findByRtuId(rtuDetails.getRtuId());
-        for (RtuDetails list : responseByDeviceName) {
-            list.setStatus(rtuDetails.isStatus());
-            repository.save(list);
+
+        List<RtuDetails> responseByDeviceName = repository.findByRtuId(rtuDetails.getRtuId());
+        if (responseByDeviceName.isEmpty()) {
+            logger.warn("No RTU found with ID: " + rtuDetails.getRtuId());
+            return Collections.emptyList();
         }
-        return rtuDetails;
+        responseByDeviceName.forEach(list -> list.setStatus(rtuDetails.isStatus()));
+
+        return repository.saveAll(responseByDeviceName);
     }
 
     @Override

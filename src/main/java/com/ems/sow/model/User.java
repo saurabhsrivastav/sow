@@ -17,8 +17,8 @@ public class User {
     private String userId;
     @Column(name = "name", nullable = false, length = 100, columnDefinition = "varchar(100)")
     private String name;
-    @Column(name = "email", unique = true, nullable = false,  length = 255,  columnDefinition = "varchar(255)")
-    private String email;
+    @Column(name = "userName", unique = true, nullable = false,  length = 255,  columnDefinition = "varchar(255)")
+    private String userName;
     @Column(name = "password", nullable = false,  length = 50,  columnDefinition = "varchar(50)")
     private String password;
     @Column(name = "customerId", length = 40,  columnDefinition = "varchar(50)")

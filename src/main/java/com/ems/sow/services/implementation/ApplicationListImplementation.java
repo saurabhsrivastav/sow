@@ -1,22 +1,23 @@
 package com.ems.sow.services.implementation;
 
-import com.ems.sow.controllers.AlertListController;
 import com.ems.sow.model.ApplicationList;
 import com.ems.sow.projection.IApplicationListProj;
 import com.ems.sow.repositories.ApplicationListRepository;
 import com.ems.sow.services.ApplicationListService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 
 @Service
 public class ApplicationListImplementation implements ApplicationListService {
 
-    Logger logger = Logger.getLogger(AlertListController.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(ApplicationListImplementation.class);
+
     @Autowired
     private ApplicationListRepository repository;
 

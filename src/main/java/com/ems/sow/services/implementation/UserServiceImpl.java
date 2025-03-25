@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmailAndPassword(String email, String password) {
-        return repository.findByEmailAndPassword(email, password);
+    public User findByUserNameAndPassword(String username, String password) {
+        return repository.findByUserNameAndPassword(username, password);
     }
 }

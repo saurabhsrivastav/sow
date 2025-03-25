@@ -1,9 +1,11 @@
 package com.ems.sow.exceptions;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-
+@Setter
+@Getter
 public class ErrorResponse {
 
     private String message;
@@ -16,28 +18,4 @@ public class ErrorResponse {
         this.status = status;
     }
 
-    // Getters and setters
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
 }

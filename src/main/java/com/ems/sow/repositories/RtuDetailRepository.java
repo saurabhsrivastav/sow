@@ -13,18 +13,34 @@ import java.util.Optional;
 @Repository
 public interface RtuDetailRepository extends JpaRepository<RtuDetails, String> {
 
-    @Query (value = "SELECT DISTINCT de.rtu_id AS rtuId, de.rtu_name AS rtuName, de.model_number AS modelNumber, de.serial_number AS serialNumber, de.rtu_category AS rtuCategory, \n" +
-            "de.customer_id AS customerId, de.status AS status, de.rtu_status AS deviceStatus, \n" +
-            "(SELECT se.site_name \n" +
-            " FROM site_details se \n" +
-            " WHERE se.site_id = de.site_id) AS siteName\n" +
-            " FROM rtu_details de \n" +
-            " WHERE \n" +
-            " de.customer_id = ?1\n" +
-            " GROUP BY \n" +
-            " de.rtu_id, de.rtu_name, de.model_number, de.serial_number, \n" +
-            " de.rtu_category, de.customer_id, de.rtu_status", nativeQuery = true)
+    @Query(value = """
+            WITH latest_stream_data AS (
+                SELECT 
+                    osd AS serial_number, 
+                    event_timestamp,
+                    ROW_NUMBER() OVER (PARTITION BY osd ORDER BY event_timestamp DESC) AS rn
+                FROM stream_data
+            )
+            SELECT  
+                de.rtu_id AS rtuId, 
+                de.rtu_name AS rtuName, 
+                de.model_number AS modelNumber, 
+                de.serial_number AS serialNumber, 
+                de.rtu_category AS rtuCategory, 
+                de.customer_id AS customerId, 
+                de.status AS status, 
+                de.rtu_status AS deviceStatus, 
+                se.site_name AS siteName,
+                ls.event_timestamp
+            FROM rtu_details de
+            LEFT JOIN latest_stream_data ls 
+                ON de.serial_number = ls.serial_number AND ls.rn = 1
+            LEFT JOIN site_details se 
+                ON de.site_id = se.site_id
+            WHERE de.customer_id = ?1
+            """, nativeQuery = true)
     Optional<List<IRtuDetailList>> findRtuDetailsByCustomerId(String id);
+
 
     @Query(value = "SELECT \n" +
             "    COUNT(*) AS all_devices,\n" +
@@ -45,6 +61,6 @@ public interface RtuDetailRepository extends JpaRepository<RtuDetails, String> {
 
     List<RtuDetails> findByCustomerId(String customerId);
 
-    List<RtuDetails>findByCustomerIdAndSerialNumber(String customerId, String serialNumber);
+    List<RtuDetails> findByCustomerIdAndSerialNumber(String customerId, String serialNumber);
 
 }

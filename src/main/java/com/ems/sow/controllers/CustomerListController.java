@@ -25,7 +25,6 @@ public class CustomerListController {
     @Autowired
     private CustomerListService customerListService;
 
-    // add new customer
     @PostMapping("/add")
     private ResponseEntity<?> createNewCustomer (@RequestParam("customerName") String customerName,
             @RequestParam("address") String address, @RequestParam("contactPerson") String contactPerson,
@@ -52,7 +51,6 @@ public class CustomerListController {
         }
     }
 
-    // get all customers
     @GetMapping("/all")
     private ResponseEntity<List<ICustomerListProj>> getAllCustomer() {
         log.info("Calling getAllCustomer () : ");
@@ -60,7 +58,6 @@ public class CustomerListController {
         return ResponseEntity.ok().body(customers);
     }
 
-    // get customers detail by application id
     @GetMapping("/{applicationId}")
     private ResponseEntity<List<ICustomerListProj>> getCustomerByApplicationId(@PathVariable String applicationId) {
         log.info("Calling getCustomer by applicationId() : ");
@@ -69,16 +66,14 @@ public class CustomerListController {
         return ResponseEntity.ok().body(customers);
     }
 
-    // get customers detail by user name
     @GetMapping("/getuser/{userName}")
-    private @NotNull ResponseEntity<List<CustomerList>> getCustomerByUserName(@PathVariable String userName) {
+    private ResponseEntity<List<CustomerList>> getCustomerByUserName(@PathVariable String userName) {
         log.info("calling get customer by userName:");
         List<CustomerList> customers = customerListService.getCustomerByUserName(userName);
         log.info("response from get customer by userName: {}", customers);
         return ResponseEntity.ok().body(customers);
     }
 
-    // load images
     @GetMapping("/image/{id}")
     private List<CustomerList> getImage(@PathVariable String id) {
         log.info("Calling device and site customer by id : ");
@@ -87,7 +82,6 @@ public class CustomerListController {
         return ResponseEntity.ok(deviceAndSite).getBody();
     }
 
-    // update customer details
     @PutMapping (value = "/update-customer")
     private ResponseEntity<CustomerList> updateCustomerDetails(@RequestBody CustomerList customerList) {
         try {
@@ -99,7 +93,6 @@ public class CustomerListController {
         }
     }
 
-    // delete customer
     @DeleteMapping ("/{id}")
     private ResponseEntity<CustomerList> deleteCustomer(@PathVariable String id) {
         try {

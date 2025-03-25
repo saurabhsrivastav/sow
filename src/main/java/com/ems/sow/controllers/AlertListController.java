@@ -18,13 +18,12 @@ public class AlertListController {
 
     private static final Logger logger = LoggerFactory.getLogger(AlertListController.class);
 
-
     @Autowired
     private AlertListService alertListService;
 
     @GetMapping("/{serialNumber}/{deviceModbus}")
     public ResponseEntity<List<AlertsData>> getAlertBySerialNumberAndOSD(@PathVariable String serialNumber,
-                                                                        @PathVariable String deviceModbus) {
+                                                                         @PathVariable String deviceModbus) {
         logger.info("Fetching alerts for serialNumber={} and deviceModbus={}", serialNumber, deviceModbus);
         try {
             List<AlertsData> alerts = alertListService.getAlertBySerialNumberAndOSD(serialNumber, deviceModbus);

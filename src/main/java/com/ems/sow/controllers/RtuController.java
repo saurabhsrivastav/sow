@@ -80,9 +80,9 @@ public class RtuController {
     }
 
     @PutMapping("/uninstall")
-    public ResponseEntity<RtuDetails> uninstalledRtu(@RequestBody RtuDetails deviceDetails) {
+    public ResponseEntity<List<RtuDetails>> uninstalledRtu(@RequestBody RtuDetails deviceDetails) {
         logger.info("uninstall device details: ");
-        final RtuDetails deviceList = rtuDetailService.uninstallRtu(deviceDetails);
+        final List<RtuDetails> deviceList = rtuDetailService.uninstallRtu(deviceDetails);
         return ResponseEntity.ok(deviceList);
     }
 }
